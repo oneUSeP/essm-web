@@ -20,10 +20,10 @@ class NavBar extends Component {
                 <span className='icon icon-users' />
                 <small className='iconav-nav-label visible-xs-block'>Accounts</small></NavLink></OverlayTrigger>
             <OverlayTrigger
-              placement='right' overlay={<Tooltip id='fields'>Fields</Tooltip>}>
-              <NavLink to='/fields' onlyActiveOnIndex>
+              placement='right' overlay={<Tooltip id='entities'>Entities</Tooltip>}>
+              <NavLink to='/entities' onlyActiveOnIndex>
                 <span className='icon icon-flow-parallel' />
-                <small className='iconav-nav-label visible-xs-block'>Fields</small></NavLink></OverlayTrigger>
+                <small className='iconav-nav-label visible-xs-block'>Entities</small></NavLink></OverlayTrigger>
           </ul>
         </div>
       </nav>
