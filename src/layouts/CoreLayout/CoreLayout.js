@@ -1,12 +1,10 @@
 import React from 'react'
-import Header from '../../components/Header'
-import classes from './CoreLayout.scss'
-import '../../styles/core.scss'
+import IconNav from '../../components/IconNav'
 
 export const CoreLayout = ({ children }) => (
-  <div className='container text-center'>
-    <Header />
-    <div className={classes.mainContainer}>
+  <div className='with-iconav'>
+    <IconNav />
+    <div className='container-fluid'>
       {children}
     </div>
   </div>
