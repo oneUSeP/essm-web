@@ -1,14 +1,19 @@
 import React from 'react'
 import IconNav from '../../components/IconNav'
+import LoadingBar from 'react-redux-loading-bar'
 
-export const CoreLayout = ({ children }) => (
-  <div className='with-iconav'>
-    <IconNav />
-    <div className='container-fluid'>
-      {children}
+export const CoreLayout = ({ children }) => {
+  const isLogin = /^\/login\/?\??/i.test(location.pathname)
+  return (
+    <div className='with-iconav'>
+      <LoadingBar style={{position: 'fixed', top: 0, left: 0, backgroundColor: '#009dc7', zIndex: 9999, height: 5}} />
+      {(!isLogin) && <IconNav />}
+      <div className='container-fluid'>
+        {children}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 CoreLayout.propTypes = {
   children: React.PropTypes.element.isRequired

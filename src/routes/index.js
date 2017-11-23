@@ -1,17 +1,26 @@
 // We only need to import the modules necessary for initial render
+import { UserIsAuthenticated, UserIsAdmin} from 'utils/authWrappers'
 import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import Home from './Home'
-import CounterRoute from './Counter'
+import LoginRoute from './Login'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
 export const createRoutes = (store) => ({
   path: '/',
+  onEnter: async (nextState, replace, cb) => {
+    const auth = JSON.parse(localStorage.getItem('reduxPersist:auth'))
+    if (auth && auth.accessToken) {
+      const authActions = require('store/modules/auth').actions
+      await store.dispatch(authActions.load(auth.accessToken))
+    }
+    cb()
+  },
   component: CoreLayout,
   indexRoute: Home,
   childRoutes: [
-    CounterRoute(store)
+    LoginRoute(store)
   ]
 })
 
