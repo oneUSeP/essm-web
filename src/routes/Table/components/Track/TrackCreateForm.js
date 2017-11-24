@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
 import validateInput from 'utils/validators/track'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 import {ModalBody,
   ModalFooter,
@@ -14,6 +15,7 @@ class TrackCreateForm extends Component {
     trackName: '',
     active: '0',
     errors: [],
+    delete: false,
     isLoading: false
   }
 
@@ -43,7 +45,7 @@ class TrackCreateForm extends Component {
   }
 
   handleStatus = (value) => {
-    this.setState({active: value})
+    this.setState({active: '' + value})
   }
 
   onSubmit = (e) => {
@@ -54,17 +56,38 @@ class TrackCreateForm extends Component {
         active: '0',
         errors: {}, isLoading: true })
       if (this.props.selectedTrack) {
-        console.log('FORM', data)
         this.props.updateTrack(data)
       } else {
+        console.log('FORM', data)
         this.props.createTrack(data)
       }
     }
   }
 
+  handleDelete = (id) => {
+    this.setState({delete: (<SweetAlert
+      warning
+      showCancel
+      confirmBtnText='Yes, delete it!'
+      confirmBtnBsStyle='danger'
+      cancelBtnBsStyle='default'
+      title='Are you sure?'
+      onConfirm={this.handleDeleteAction}
+      onCancel={e => { this.setState({delete: null}) }}
+    >
+    You will not be able to recover this record!
+    </SweetAlert>)})
+  }
+
+  handleDeleteAction = () => {
+    this.setState({delete: null})
+    this.props.deleteTrack(this.state.id)
+  }
+
   render () {
     return (
-      <form className='form-access' onSubmit={this.onSubmit}>
+      <form className='form-access' >
+        {this.state.delete}
         <ModalBody>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
@@ -93,9 +116,8 @@ class TrackCreateForm extends Component {
 
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-lg btn-pill btn-primary'>
-            Submit
-          </button>
+          {this.props.selectedTrack && (<button type='button' className='btn btn-md btn-pill btn-danger' onClick={e => { this.handleDelete() }}>Delete</button>)}
+          <button type='button' className='btn btn-md btn-pill btn-primary' onClick={this.onSubmit}>Submit</button>
         </ModalFooter>
       </form>
     )

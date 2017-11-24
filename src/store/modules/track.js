@@ -78,12 +78,12 @@ export function updateTrack (data) {
   }
 }
 
-export function deleteTrack (code) {
+export function deleteTrack (id) {
   return (dispatch, getState) => {
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
-        endpoint: `/api/v1/track/${code}`,
+        endpoint: `/api/v1/track/${id}`,
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${accessToken}`

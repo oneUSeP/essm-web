@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import TrackModal from './TrackModal'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 class Track extends Component {
   constructor (props) {
@@ -9,21 +10,18 @@ class Track extends Component {
       page: 1,
       count: 1000,
       delete: false,
-      alert: false,
-      show: false,
-      open: false,
-      uploadSuccess: null,
       selectedTrack: null,
       openModal: false
     }
   }
 
   componentWillReceiveProps (nextProps) {
-    var deleteSuccess = nextProps.deletingTrackSuccess
-    if (deleteSuccess) {
+    if (nextProps.deletingTrackSuccess) {
+      let {page, count} = this.state
+      this.props.getTracks(page, count)
       this.setState({
-        alert: (
-          <SweetAlert success title='Deleted!' onConfirm={e => { this.setState({alert: null}) }}>
+        delete: (
+          <SweetAlert success title='Deleted!' onConfirm={e => { this.setState({delete: null, openModal: false}) }}>
             Track has been deleted.
           </SweetAlert>
           )
@@ -47,8 +45,8 @@ class Track extends Component {
     let { name, data } = this.props
     return (
       <div className='w-full m-x-auto'>
-        <TrackModal selectedTrack={this.state.selectedTrack || null} open={this.state.openModal} onClose={e => { this.setState({ openModal: false }) }} {...this.props} />
-
+        {this.state.delete}
+        <TrackModal selectedTrack={this.state.selectedTrack || null} open={this.state.openModal} onClose={e => { this.setState({ openModal: false, selectedTrack: null }) }} {...this.props} />
         <div className='list-group' style={{marginTop: '2%'}}>
           <h4 className='list-group-header'>
             <div className='flextable'>
@@ -65,7 +63,7 @@ class Track extends Component {
           {
             data && data.map((track, i) => {
               return (
-                <a className='list-group-item' href='#' onClick={e => { this.handleClick(track) }}>
+                <a className='list-group-item' onClick={e => { this.handleClick(track) }}>
                   <span className='list-group-progress' style={{width: '100%'}}></span>
                   <span className='pull-right text-muted'>{track.get('is_active') ? 'Active' : 'Inactive'}</span>
                   {track.get('track_name')}

@@ -13,7 +13,8 @@ const mapActionCreators = {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tracks: state.track.get('tracks'),
-  creatingTrackSuccess: state.track.get('creatingTrackSuccess')
+  creatingTrackSuccess: state.track.get('creatingTrackSuccess'),
+  deletingTrackSuccess: state.track.get('deletingTrackSuccess')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Table)
