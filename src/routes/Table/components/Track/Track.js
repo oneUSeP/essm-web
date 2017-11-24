@@ -39,8 +39,12 @@ class Track extends Component {
     }
   }
 
+  handleClick = (data) => {
+    this.setState({selectedTrack: data, openModal: true})
+  }
+
   render () {
-    let {name, data} = this.props
+    let { name, data } = this.props
     return (
       <div className='w-full m-x-auto'>
         <TrackModal selectedTrack={this.state.selectedTrack || null} open={this.state.openModal} onClose={e => { this.setState({ openModal: false }) }} {...this.props} />
@@ -61,7 +65,7 @@ class Track extends Component {
           {
             data && data.map((track, i) => {
               return (
-                <a className='list-group-item' href='#'>
+                <a className='list-group-item' href='#' onClick={e => { this.handleClick(track) }}>
                   <span className='list-group-progress' style={{width: '100%'}}></span>
                   <span className='pull-right text-muted'>{track.get('is_active') ? 'Active' : 'Inactive'}</span>
                   {track.get('track_name')}

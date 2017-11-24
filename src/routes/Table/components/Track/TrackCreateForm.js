@@ -10,7 +10,7 @@ import {ModalBody,
 
 class TrackCreateForm extends Component {
   state = {
-    trackId: '',
+    id: '',
     trackName: '',
     active: '0',
     errors: [],
@@ -21,9 +21,9 @@ class TrackCreateForm extends Component {
     let { selectedTrack } = nextProps
     if (selectedTrack) {
       this.setState({
-        trackId: '' + selectedTrack.track_id,
-        trackName: selectedTrack.track_name,
-        active: selectedTrack.is_active
+        id: '' + selectedTrack.get('track_id'),
+        trackName: selectedTrack.get('track_name'),
+        active: '' + selectedTrack.get('is_active')
       })
     }
   }
@@ -53,10 +53,10 @@ class TrackCreateForm extends Component {
       this.setState({ trackName: '',
         active: '0',
         errors: {}, isLoading: true })
-      if (this.props.selectedRoom) {
+      if (this.props.selectedTrack) {
+        console.log('FORM', data)
         this.props.updateTrack(data)
       } else {
-        console.log('FORM', data)
         this.props.createTrack(data)
       }
     }
