@@ -21,11 +21,12 @@ class TrackCreateForm extends Component {
 
   componentWillReceiveProps (nextProps) {
     let { selectedTrack } = nextProps
-    if (selectedTrack) {
+
+    if (selectedTrack && selectedTrack != null) {
       this.setState({
-        id: '' + selectedTrack.get('track_id'),
-        trackName: selectedTrack.get('track_name'),
-        active: '' + selectedTrack.get('is_active')
+        id: '' + selectedTrack.get('track_id') || '',
+        trackName: selectedTrack.get('track_name') || '',
+        active: '' + selectedTrack.get('is_active') || ''
       })
     }
   }
@@ -52,13 +53,12 @@ class TrackCreateForm extends Component {
     e.preventDefault()
     let data = this.state
     if (this.isValid(data)) {
-      this.setState({ trackName: '',
+      this.setState({ id: '', trackName: '',
         active: '0',
         errors: {}, isLoading: true })
       if (this.props.selectedTrack) {
         this.props.updateTrack(data)
       } else {
-        console.log('FORM', data)
         this.props.createTrack(data)
       }
     }

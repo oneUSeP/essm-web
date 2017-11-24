@@ -118,7 +118,8 @@ actionHandlers[ CREATE_TRACK ] = state => {
   return state.merge({
     creatingTrack: true,
     creatingTrackSuccess: false,
-    createTrackError: null
+    createTrackError: null,
+    deletingTrackSuccess: false
   })
 }
 

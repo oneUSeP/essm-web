@@ -25,7 +25,6 @@ class Table extends Component {
   }
 
   render () {
-    console.log(this.props)
     let { tracks } = this.props
     if (tracks) {
       var tracksData = tracks.get('data')

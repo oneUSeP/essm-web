@@ -10,7 +10,7 @@ import {
 class TrackModal extends Component {
 
   hideModal = () => {
-    this.props.onClose()
+    this.props.closeModal()
   }
 
   render () {
@@ -18,7 +18,7 @@ class TrackModal extends Component {
       <Modal isOpen={this.props.open} onRequestHide={this.hideModal}>
         <ModalHeader>
           <ModalClose onClick={this.hideModal} />
-          <ModalTitle >Create New Track</ModalTitle>
+          <ModalTitle >{this.props.selectedTrack ? 'Update' : 'Create'} Track</ModalTitle>
         </ModalHeader>
         <TrackCreateForm {...this.props} />
       </Modal>

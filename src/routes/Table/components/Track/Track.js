@@ -20,6 +20,7 @@ class Track extends Component {
       let {page, count} = this.state
       this.props.getTracks(page, count)
       this.setState({
+        selectedTrack: null,
         delete: (
           <SweetAlert success title='Deleted!' onConfirm={e => { this.setState({delete: null, openModal: false}) }}>
             Track has been deleted.
@@ -32,6 +33,7 @@ class Track extends Component {
       let {page, count} = this.state
       this.props.getTracks(page, count)
       this.setState({
+        selectedTrack: null,
         openModal: false
       })
     }
@@ -41,12 +43,16 @@ class Track extends Component {
     this.setState({selectedTrack: data, openModal: true})
   }
 
+  handleModalClose = () => {
+    this.setState({selectedTrack: null, openModal: false})
+  }
+
   render () {
     let { name, data } = this.props
     return (
       <div className='w-full m-x-auto'>
         {this.state.delete}
-        <TrackModal selectedTrack={this.state.selectedTrack || null} open={this.state.openModal} onClose={e => { this.setState({ openModal: false, selectedTrack: null }) }} {...this.props} />
+        <TrackModal selectedTrack={this.state.selectedTrack} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
         <div className='list-group' style={{marginTop: '2%'}}>
           <h4 className='list-group-header'>
             <div className='flextable'>
