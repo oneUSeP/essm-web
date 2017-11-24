@@ -3,5 +3,5 @@ import { UserIsAuthenticated, UserIsAdmin } from 'utils/authWrappers'
 
 // Sync route definition
 export default {
-  component: UserIsAuthenticated(UserIsAdmin(HomeContainer))
+  component: UserIsAuthenticated(HomeContainer)
 }
