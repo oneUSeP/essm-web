@@ -40,10 +40,10 @@ class Table extends Component {
             </div>
           </div>
         </div>
-        <div className='col-sm-12 content'>
+        <div className='w-full m-x-auto'>
           <Tabs bsStyle='nav nav-bordered' activeKey={this.state.selectedTab || 'track'} onSelect={this.handleSelect} id='controlled-tab-example'>
             {tracksData ? <Tab style={{textAlign: 'left'}} key='track' eventKey='track' title='Tracks'><Track name={'Tracks'} data={tracksData} {...this.props} /></Tab> : null}
-            <Tab style={{textAlign: 'left'}} key='strand' eventKey='strand' title='Track Strands'><Track name={'Track Strands'} /></Tab>
+            <Tab style={{textAlign: 'left'}} key='strand' eventKey='strand' title='Strands'><Track name={'Strands'} /></Tab>
             <Tab style={{textAlign: 'left'}} key='grade' eventKey='grade' title='Grades'><Track name={'Grades'} /></Tab>
             <Tab style={{textAlign: 'left'}} key='income' eventKey='income' title='Annual Income'><Track name={'Annual Income'} /></Tab>
             <Tab style={{textAlign: 'left'}} key='testing' eventKey='testing' title='Testing Centers'><Track name={'Testing Centers'} /></Tab>

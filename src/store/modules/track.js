@@ -116,16 +116,16 @@ const actionHandlers = {}
 
 actionHandlers[ CREATE_TRACK ] = state => {
   return state.merge({
-    creatingBranch: true,
-    creatingBranchSuccess: false,
+    creatingTrack: true,
+    creatingTrackSuccess: false,
     createTrackError: null
   })
 }
 
 actionHandlers[ CREATE_TRACK_SUCCESS ] = (state, action) => {
   return state.merge({
-    creatingBranch: false,
-    creatingBranchSuccess: true,
+    creatingTrack: false,
+    creatingTrackSuccess: true,
     createTrackError: null,
     track: action.payload.data.track
   })
@@ -133,26 +133,26 @@ actionHandlers[ CREATE_TRACK_SUCCESS ] = (state, action) => {
 
 actionHandlers[ CREATE_TRACK_FAIL ] = (state, action) => {
   return state.merge({
-    creatingBranch: false,
-    creatingBranchSuccess: false,
+    creatingTrack: false,
+    creatingTrackSuccess: false,
     createTrackError: action.payload.response.error
   })
 }
 
 actionHandlers[ GET_TRACKS ] = state => {
   return state.merge({
-    fetchingBranches: true,
-    fetchingBranchesSuccess: false,
+    fetchingTracks: true,
+    fetchingTracksSuccess: false,
     getTracksError: null,
-    creatingBranchSuccess: false,
-    deletingBranchSuccess: false
+    creatingTrackSuccess: false,
+    deletingTrackSuccess: false
   })
 }
 
 actionHandlers[ GET_TRACKS_SUCCESS ] = (state, action) => {
   return state.merge({
-    fetchingBranches: false,
-    fetchingBranchesSuccess: true,
+    fetchingTracks: false,
+    fetchingTracksSuccess: true,
     getTracksError: null,
     tracks: action.payload.data.tracks
   })
@@ -160,32 +160,32 @@ actionHandlers[ GET_TRACKS_SUCCESS ] = (state, action) => {
 
 actionHandlers[ GET_TRACKS_FAIL ] = (state, action) => {
   return state.merge({
-    fetchingBranches: false,
-    fetchingBranchesSuccess: false,
+    fetchingTracks: false,
+    fetchingTracksSuccess: false,
     getTracksError: action.payload.response.error
   })
 }
 
 actionHandlers[ DELETE_TRACK ] = state => {
   return state.merge({
-    deletingBranch: true,
-    deletingBranchSuccess: false,
+    deletingTrack: true,
+    deletingTrackSuccess: false,
     deleteTrackError: null
   })
 }
 
 actionHandlers[ DELETE_TRACK_SUCCESS ] = (state, action) => {
   return state.merge({
-    deletingBranch: false,
-    deletingBranchSuccess: true,
+    deletingTrack: false,
+    deletingTrackSuccess: true,
     deleteTrackError: null
   })
 }
 
 actionHandlers[ DELETE_TRACK_FAIL ] = (state, action) => {
   return state.merge({
-    deletingBranch: false,
-    deletingBranchSuccess: false,
+    deletingTrack: false,
+    deletingTrackSuccess: false,
     deleteTrackError: action.payload.response.error
   })
 }
@@ -197,12 +197,12 @@ actionHandlers[ DELETE_TRACK_FAIL ] = (state, action) => {
 const initialState = Immutable.fromJS({
   track: null,
   createTrackError: false,
-  creatingBranchSuccess: false,
+  creatingTrackSuccess: false,
   tracks: null,
   getTracksError: false,
-  fetchingBranchSuccess: false,
+  fetchingTrackSuccess: false,
   deleteTrackError: false,
-  deletingBranchSuccess: false
+  deletingTrackSuccess: false
 })
 
 export default function reducer (state = initialState, action) {
