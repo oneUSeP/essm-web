@@ -21,7 +21,7 @@ class NavBar extends Component {
                 <small className='iconav-nav-label visible-xs-block'>Accounts</small></NavLink></OverlayTrigger>
             <OverlayTrigger
               placement='right' overlay={<Tooltip id='entities'>Entities</Tooltip>}>
-              <NavLink to='/entities' onlyActiveOnIndex>
+              <NavLink to='/tables' onlyActiveOnIndex>
                 <span className='icon icon-flow-parallel' />
                 <small className='iconav-nav-label visible-xs-block'>Entities</small></NavLink></OverlayTrigger>
           </ul>
