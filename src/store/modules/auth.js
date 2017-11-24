@@ -95,7 +95,7 @@ export function logout () {
     })
     localStorage.removeItem('reduxPersist:auth')
     localStorage.removeItem('reduxPersist:app')
-    window.location = '/dashboard'
+    window.location = '/'
   }
 }
 

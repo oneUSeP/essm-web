@@ -1,30 +1,43 @@
-import React from 'react'
-import { IndexLink, Link } from 'react-router'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-export const Home = () => (
-  <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
-    <div className='col-sm-12 content'>
-      <div className='dashhead'>
-        <div className='dashhead-titles'>
-          <h6 className='dashhead-subtitle'>USEP-KMSD | ESSM</h6>
-          <h3 className='dashhead-title'>Enrollment System Support Module</h3>
-        </div>
+class Home extends Component {
 
-        <div className='btn-toolbar dashhead-toolbar'>
-          <div className='btn-toolbar-item' style={{ marginLeft: '0px' }}>
-            <button type='button' className='btn btn-pill btn-danger' onClick={e => { this.handleLogout() }}>Logout</button>
+  handleLogout = (e) => {
+    this.props.logout()
+  }
+
+  render () {
+    return (
+      <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
+        <div className='col-sm-12 content'>
+          <div className='dashhead'>
+            <div className='dashhead-titles'>
+              <h6 className='dashhead-subtitle'>USEP-KMSD | ESSM</h6>
+              <h3 className='dashhead-title'>Enrollment System Support Module</h3>
+            </div>
+
+            <div className='btn-toolbar dashhead-toolbar'>
+              <div className='btn-toolbar-item' style={{ marginLeft: '0px' }}>
+                <button type='button' className='btn btn-pill btn-danger' onClick={e => { this.handleLogout() }}>Logout</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div className='hr-divider m-t-lg m-b-md'>
-      <h3 className='hr-divider-content hr-divider-heading'>Information</h3>
-    </div>
+        <div className='hr-divider m-t-lg m-b-md'>
+          <h3 className='hr-divider-content hr-divider-heading'>Information</h3>
+        </div>
 
-    <div className='row'>
+        <div className='row'>
 
-    </div>
+        </div>
   </div>
-)
+    )
+  }
+}
+
+Home.propTypes = {
+
+}
 
 export default Home
