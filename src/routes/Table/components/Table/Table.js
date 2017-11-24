@@ -4,8 +4,19 @@ import PropTypes from 'prop-types'
 class Table extends Component {
   render () {
     return (
-      <div>
+      <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
+        <div className='col-sm-12 content'>
+          <div className='dashhead'>
+            <div className='dashhead-titles'>
+              <h6 className='dashhead-subtitle'>USEP-KMSD | SY 2017-2018</h6>
+              <h3 className='dashhead-title'>Registration Form Fields</h3>
+            </div>
+          </div>
+        </div>
 
+        <div className='row'>
+
+        </div>
       </div>
     )
   }
