@@ -39,12 +39,12 @@ export const UPLOAD_PROFILE_PHOTO_FAIL = 'api/UPLOAD_PROFILE_PHOTO_FAIL'
 // Actions
 // ------------------------------------
 
-export function login (accountId, password) {
+export function login (accountId, accountPass) {
   return {
     [CALL_API]: {
       endpoint: '/api/v1/auth/access-token',
       method: 'POST',
-      body: JSON.stringify({ accountId, password }),
+      body: JSON.stringify({ accountId, accountPass }),
       headers: {
         'Content-Type': 'application/json'
       },
@@ -333,14 +333,11 @@ actionHandlers[ LOGIN_SUCCESS ] = (state, action) => state.merge({
   loginError: null
 })
 
-actionHandlers[ LOGIN_FAIL ] = (state, action) => {
-  console.log(action)
-  state.merge({
-    loggingIn: false,
-    loginSuccess: false,
-    loginError: action.payload.response.error
-  })
-}
+actionHandlers[ LOGIN_FAIL ] = (state, action) => state.merge({
+  loggingIn: false,
+  loginSuccess: false,
+  loginError: action.payload.response.error
+})
 
 actionHandlers[ LOAD ] = (state, action) => state.merge({
   loading: false,

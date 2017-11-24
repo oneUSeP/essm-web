@@ -2,6 +2,11 @@ import React from 'react'
 import IconNav from '../../components/IconNav'
 import LoadingBar from 'react-redux-loading-bar'
 
+import Alert from 'react-s-alert'
+
+import 'react-s-alert/dist/s-alert-default.css'
+import 'react-s-alert/dist/s-alert-css-effects/scale.css'
+
 export const CoreLayout = ({ children }) => {
   const isLogin = /^\/login\/?\??/i.test(location.pathname)
   return (
@@ -10,6 +15,7 @@ export const CoreLayout = ({ children }) => {
       {(!isLogin) && <IconNav />}
       <div className='container-fluid'>
         {children}
+        <Alert stack={{limit: 3}} />
       </div>
     </div>
   )
