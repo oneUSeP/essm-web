@@ -5,7 +5,7 @@ class Track extends Component {
   render () {
     return (
       <div className='w-sm m-x-auto'>
-        <div className='list-group'>
+        <div className='list-group' style={{marginTop: '2%'}}>
           <h4 className='list-group-header'>
             Countries
           </h4>
