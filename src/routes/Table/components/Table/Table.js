@@ -14,12 +14,22 @@ class Table extends Component {
     }
   }
 
+  componentWillMount () {
+    let {page, count} = this.state
+    this.props.getTracks(page, count)
+  }
+
   handleSelect = (e) => {
     event.preventDefault()
     this.setState({ selectedTab: e })
   }
 
   render () {
+    console.log(this.props)
+    let { tracks } = this.props
+    if (tracks) {
+      var tracksData = tracks.get('data')
+    }
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
         <div className='col-sm-12 content'>
@@ -32,11 +42,11 @@ class Table extends Component {
         </div>
         <div className='col-sm-12 content'>
           <Tabs bsStyle='nav nav-bordered' activeKey={this.state.selectedTab || 'track'} onSelect={this.handleSelect} id='controlled-tab-example'>
-            <Tab style={{textAlign: 'left'}} key='track' eventKey='track' title='Tracks'><Track /></Tab>
-            <Tab style={{textAlign: 'left'}} key='strand' eventKey='strand' title='Track Strands'><Track /></Tab>
-            <Tab style={{textAlign: 'left'}} key='grade' eventKey='grade' title='Grades'><Track /></Tab>
-            <Tab style={{textAlign: 'left'}} key='income' eventKey='income' title='Annual Income'><Track /></Tab>
-            <Tab style={{textAlign: 'left'}} key='testing' eventKey='testing' title='Testing Centers'><Track /></Tab>
+            {tracksData ? <Tab style={{textAlign: 'left'}} key='track' eventKey='track' title='Tracks'><Track name={'Tracks'} data={tracksData} {...this.props} /></Tab> : null}
+            <Tab style={{textAlign: 'left'}} key='strand' eventKey='strand' title='Track Strands'><Track name={'Track Strands'} /></Tab>
+            <Tab style={{textAlign: 'left'}} key='grade' eventKey='grade' title='Grades'><Track name={'Grades'} /></Tab>
+            <Tab style={{textAlign: 'left'}} key='income' eventKey='income' title='Annual Income'><Track name={'Annual Income'} /></Tab>
+            <Tab style={{textAlign: 'left'}} key='testing' eventKey='testing' title='Testing Centers'><Track name={'Testing Centers'} /></Tab>
           </Tabs>
         </div>
       </div>

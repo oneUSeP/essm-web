@@ -20,7 +20,7 @@ export const DELETE_TRACK_FAIL = 'api/DELETE_TRACK_FAIL'
 export function getTracks (page = 1, count = 10) {
   return (dispatch, getState) => {
     dispatch(showLoading())
-    let endpoint = `/api/v1/trackes?page=${page}&count=${count}`
+    let endpoint = `/api/v1/tracks?page=${page}&count=${count}`
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
@@ -154,7 +154,7 @@ actionHandlers[ GET_TRACKS_SUCCESS ] = (state, action) => {
     fetchingBranches: false,
     fetchingBranchesSuccess: true,
     getTracksError: null,
-    trackes: action.payload.data.trackes
+    tracks: action.payload.data.tracks
   })
 }
 
@@ -198,7 +198,7 @@ const initialState = Immutable.fromJS({
   track: null,
   createTrackError: false,
   creatingBranchSuccess: false,
-  trackes: null,
+  tracks: null,
   getTracksError: false,
   fetchingBranchSuccess: false,
   deleteTrackError: false,
