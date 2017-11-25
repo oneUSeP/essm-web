@@ -39,7 +39,7 @@ class Table extends Component {
             </div>
           </div>
         </div>
-        <div className='w-full m-x-auto'>
+        <div className='w-lg m-x-auto'>
           <Tabs bsStyle='nav nav-bordered' activeKey={this.state.selectedTab || 'track'} onSelect={this.handleSelect} id='controlled-tab-example'>
             {tracksData ? <Tab style={{textAlign: 'left'}} key='track' eventKey='track' title='Tracks'><Track name={'Tracks'} data={tracksData} {...this.props} /></Tab> : null}
             <Tab style={{textAlign: 'left'}} key='strand' eventKey='strand' title='Strands'><Track name={'Strands'} /></Tab>

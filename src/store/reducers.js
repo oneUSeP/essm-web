@@ -4,6 +4,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar'
 import app from './modules/app'
 import auth from './modules/auth'
 import track from './modules/track'
+import admission from './modules/admission'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -12,6 +13,7 @@ export const makeRootReducer = (asyncReducers) => {
     app,
     auth,
     track,
+    admission,
     loadingBar: loadingBarReducer,
     ...asyncReducers
   })

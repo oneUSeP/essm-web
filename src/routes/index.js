@@ -4,6 +4,7 @@ import Home from './Home'
 import LoginRoute from './Login'
 import AccountRoute from './Account'
 import TableRoute from './Table'
+import AdmissionRoute from './Admission'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -23,7 +24,8 @@ export const createRoutes = (store) => ({
   childRoutes: [
     LoginRoute(store),
     AccountRoute(store),
-    TableRoute(store)
+    TableRoute(store),
+    AdmissionRoute(store)
   ]
 })
 

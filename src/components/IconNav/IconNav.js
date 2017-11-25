@@ -15,10 +15,10 @@ class NavBar extends Component {
         <div className='iconav-slider'>
           <ul className='nav nav-pills iconav-nav' role='tablist'>
             <OverlayTrigger
-              placement='right' overlay={<Tooltip id='accounts'>Accounts</Tooltip>}>
-              <NavLink to='/accounts' onlyActiveOnIndex>
+              placement='right' overlay={<Tooltip id='admissions'>Admissions</Tooltip>}>
+              <NavLink to='/admissions' onlyActiveOnIndex>
                 <span className='icon icon-users' />
-                <small className='iconav-nav-label visible-xs-block'>Accounts</small></NavLink></OverlayTrigger>
+                <small className='iconav-nav-label visible-xs-block'>Admissions</small></NavLink></OverlayTrigger>
             <OverlayTrigger
               placement='right' overlay={<Tooltip id='entities'>Entities</Tooltip>}>
               <NavLink to='/tables' onlyActiveOnIndex>
