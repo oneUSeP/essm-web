@@ -50,10 +50,7 @@ class AdmissionTable extends Component {
             <table className='table' data-sort='table'>
               <thead>
                 <tr>
-                  <th>AppNo</th>
-                  <th>Last Name</th>
-                  <th>First Name</th>
-                  <th>Middle Name</th>
+                  <th>Full Name</th>
                   <th>Birthday</th>
                   <th>Gender</th>
                   <th>Status</th>
@@ -104,10 +101,7 @@ class AdmissionTable extends Component {
               {data && (data.map(admission => {
                 return (
                   <tr key={admission.get('AppNo')}>
-                    <td><a href='#' >{admission.get('AppNo')}</a></td>
-                    <td>{admission.get('LastName')}</td>
-                    <td>{admission.get('FirstName')}</td>
-                    <td>{admission.get('MiddleName')}</td>
+                    <td><a href='#' >{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
                     <td>{moment(admission.get('DateOfBirth')).format('MM/DD/YYYY')}</td>
                     <td>{admission.get('CivilStatusID')}</td>
                     <td>{admission.get('Gender')}</td>
