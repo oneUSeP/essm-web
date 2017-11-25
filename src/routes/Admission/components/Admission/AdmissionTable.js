@@ -60,6 +60,7 @@ class AdmissionTable extends Component {
             <table className='table' data-sort='table'>
               <thead>
                 <tr>
+                  <th>Date</th>
                   <th>Full Name</th>
                   <th>Birthday</th>
                   <th>Gender</th>
@@ -111,6 +112,7 @@ class AdmissionTable extends Component {
               {data && (data.map(admission => {
                 return (
                   <tr key={admission.get('AppNo')}>
+                    <td>{moment(admission.get('AppDate')).format('LLLL')}</td>
                     <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
                     <td>{moment(admission.get('DateOfBirth')).format('MM/DD/YYYY')}</td>
                     <td>{admission.get('Gender')}</td>
