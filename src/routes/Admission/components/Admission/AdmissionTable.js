@@ -55,6 +55,7 @@ class AdmissionTable extends Component {
                   <th>First Name</th>
                   <th>Middle Name</th>
                   <th>Birthday</th>
+                  <th>Gender</th>
                   <th>Status</th>
                   <th>Home Address</th>
                   <th>Alternate Address</th>
@@ -76,6 +77,10 @@ class AdmissionTable extends Component {
                   <th>Mother/Guardian Name</th>
                   <th>Mother's Occupation</th>
                   <th>Mother's Annual Income</th>
+                  <th>Emergency Name</th>
+                  <th>Emergency Relationship</th>
+                  <th>Emergency Address</th>
+                  <th>Emergency Contact Number</th>
                   <th>Elementary School</th>
                   <th>Address</th>
                   <th>Year Graduated</th>
@@ -96,7 +101,72 @@ class AdmissionTable extends Component {
                 </tr>
               </thead>
               <tbody>
-
+              {data && (data.map(admission => {
+                return (
+                  <tr key={admission.get('AppNo')}>
+                    <td><a href='#' >{admission.get('AppNo')}</a></td>
+                    <td>{admission.get('LastName')}</td>
+                    <td>{admission.get('FirstName')}</td>
+                    <td>{admission.get('MiddleName')}</td>
+                    <td>{moment(admission.get('DateOfBirth')).format('MM/DD/YYYY')}</td>
+                    <td>{admission.get('CivilStatusID')}</td>
+                    <td>{admission.get('Gender')}</td>
+                    <td>{admission.get('Res_Barangay')}</td>
+                    <td>{admission.get('Res_TownCity')}</td>
+                    <td>{admission.get('Email')}</td>
+                    <td>{admission.get('TelNo')}</td>
+                    <td>{admission.get('MiddleName')}</td>
+                    <td>{admission.get('Choice1_CampusID')}</td>
+                    <td>{admission.get('Choice1_Course')}</td>
+                    <td>{admission.get('Choice1_CourseMajor')}</td>
+                    <td>{admission.get('Choice2_CampusID')}</td>
+                    <td>{admission.get('Choice2_Course')}</td>
+                    <td>{admission.get('Choice2_CourseMajor')}</td>
+                    <td>{admission.get('Choice3_CampusID')}</td>
+                    <td>{admission.get('Choice3_Course')}</td>
+                    <td>{admission.get('Choice3_CourseMajor')}</td>
+                    <td>{admission.get('Father')}</td>
+                    <td>{admission.get('Father_Occupation')}</td>
+                    <td>{admission.get('Father_Income')}</td>
+                    <td>{admission.get('Mother')}</td>
+                    <td>{admission.get('Mother_Occupation')}</td>
+                    <td>{admission.get('Mother_Income')}</td>
+                    <td>{admission.get('Emergency_Contact')}</td>
+                    <td></td>
+                    <td>{admission.get('Emergency_Address')}</td>
+                    <td>{admission.get('Emergency_TelNo')}</td>
+                    <td>{admission.get('Elem_School')}</td>
+                    <td>{admission.get('Elem_Address')}</td>
+                    <td>{admission.get('Elem_InclDates')}</td>
+                    <td>{admission.get('HS_School')}</td>
+                    <td>{admission.get('HS_Address')}</td>
+                    <td>{admission.get('HS_InclDates')}</td>
+                    <td>{admission.get('College_School')}</td>
+                    <td>{admission.get('College_Address')}</td>
+                    <td>{admission.get('College_InclDates')}</td>
+                    <td>{admission.get('Track_ID')}</td>
+                    <td>{admission.get('Strand_ID')}</td>
+                    <td>{admission.get('Other_Strand')}</td>
+                    <td>{admission.get('Grade_9')}</td>
+                    <td>{admission.get('Grade_10')}</td>
+                    <td>{admission.get('Grade_11')}</td>
+                    <td>{admission.get('Grade_12')}</td>
+                    <td>{admission.get('ES_Test_Center')}</td>
+                    {/* <td>{admission.get('roomTypes') && JSON.parse(admission.get('roomTypes')).map(room => {
+                      return (<button type='button' className='btn btn-xs btn-pill btn-info'>{room.name}</button>)
+                    })}</td>
+                    <td>
+                      <div className='btn-group'>
+                        <button type='button' className='btn btn-primary-outline' onClick={e => (this.setState({selectedBranch: admission, open: true}))}>
+                          <span className='icon icon-pencil' />
+                        </button>
+                        <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(admission.get('code')) }}>
+                          <span className='icon icon-erase' />
+                        </button>
+                      </div></td> */}
+                  </tr>
+                )
+              }))}
               </tbody>
             </table>
           </div>
