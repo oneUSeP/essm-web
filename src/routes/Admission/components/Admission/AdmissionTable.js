@@ -4,16 +4,17 @@ import moment from 'moment'
 import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import PropTypes from 'prop-types'
+import AdmissionModal from './AdmissionModal'
 
 class AdmissionTable extends Component {
   constructor (props) {
     super(props)
     this.state = {
       page: 1,
-      count: 15,
+      count: 30,
       delete: false,
-      alert: false,
-      open: false
+      selectedRecord: null,
+      openModal: false
     }
   }
 
@@ -38,6 +39,14 @@ class AdmissionTable extends Component {
     this.setState({page})
   }
 
+  handleClick = (data) => {
+    this.setState({selectedRecord: data, openModal: true})
+  }
+
+  handleModalClose = () => {
+    this.setState({selectedRecord: null, openModal: false})
+  }
+
   render () {
     let { admissions, fetchingAdmissions } = this.props
     if (admissions) {
@@ -45,6 +54,7 @@ class AdmissionTable extends Component {
     }
     return (
       <div className='w-full m-x-auto'>
+        <AdmissionModal selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
         <div className='table-full'>
           <div className='table-responsive'>
             <table className='table' data-sort='table'>
@@ -101,15 +111,15 @@ class AdmissionTable extends Component {
               {data && (data.map(admission => {
                 return (
                   <tr key={admission.get('AppNo')}>
-                    <td><a href='#' >{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
+                    <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
                     <td>{moment(admission.get('DateOfBirth')).format('MM/DD/YYYY')}</td>
-                    <td>{admission.get('CivilStatusID')}</td>
                     <td>{admission.get('Gender')}</td>
+                    <td>{admission.get('CivilStatusID')}</td>
                     <td>{admission.get('Res_Barangay')}</td>
                     <td>{admission.get('Res_TownCity')}</td>
                     <td>{admission.get('Email')}</td>
                     <td>{admission.get('TelNo')}</td>
-                    <td>{admission.get('MiddleName')}</td>
+                    <td>{admission.get('TermID')}</td>
                     <td>{admission.get('Choice1_CampusID')}</td>
                     <td>{admission.get('Choice1_Course')}</td>
                     <td>{admission.get('Choice1_CourseMajor')}</td>
@@ -126,7 +136,7 @@ class AdmissionTable extends Component {
                     <td>{admission.get('Mother_Occupation')}</td>
                     <td>{admission.get('Mother_Income')}</td>
                     <td>{admission.get('Emergency_Contact')}</td>
-                    <td></td>
+                    <td>{admission.get('emergency_relation')}</td>
                     <td>{admission.get('Emergency_Address')}</td>
                     <td>{admission.get('Emergency_TelNo')}</td>
                     <td>{admission.get('Elem_School')}</td>
