@@ -15,13 +15,20 @@ class Admission extends Component {
       search: '',
       errors: [],
       page: 1,
-      count: 15
+      count: 99
     }
   }
 
   componentWillMount () {
     let { page, count } = this.state
     this.props.getAdmissions(page, count)
+    this.props.getAyTerms(page, 999)
+    this.props.getCampuses(page, count)
+    this.props.getCivilStatuses(page, count)
+    this.props.getIncomeBrackets(page, count)
+    this.props.getStrands(page, count)
+    this.props.getTracks(page, count)
+    this.props.getTestingCenters(page, count)
   }
 
   render () {

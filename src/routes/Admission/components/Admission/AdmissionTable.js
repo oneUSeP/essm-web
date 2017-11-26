@@ -5,6 +5,7 @@ import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import PropTypes from 'prop-types'
 import AdmissionModal from './AdmissionModal'
+import getData from 'utils/pagination'
 
 class AdmissionTable extends Component {
   constructor (props) {
@@ -48,10 +49,18 @@ class AdmissionTable extends Component {
   }
 
   render () {
-    let { admissions, fetchingAdmissions } = this.props
-    if (admissions) {
-      var data = admissions.get('data')
-    }
+    let { admissions, fetchingAdmissions, ayterms,
+      campuses, civilstatuses, incomebrackets, strands,
+      testingcenters, tracks } = this.props
+
+    var admissionsData = getData(admissions)
+    var civilStatusesData = getData(civilstatuses)
+    var incomeBracketsData = getData(incomebrackets)
+    var aYTermsData = getData(ayterms)
+    var strandsData = getData(strands)
+    var testingCentersData = getData(testingcenters)
+    var tracksData = getData(tracks)
+
     return (
       <div className='w-full m-x-auto'>
         <AdmissionModal selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
@@ -60,7 +69,6 @@ class AdmissionTable extends Component {
             <table className='table' data-sort='table'>
               <thead>
                 <tr>
-                  <th>Date</th>
                   <th>Full Name</th>
                   <th>Birthday</th>
                   <th>Gender</th>
@@ -106,22 +114,24 @@ class AdmissionTable extends Component {
                   <th>Grade 11</th>
                   <th>Grade 12 (First Sem)</th>
                   <th>Testing Center</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
-              {data && (data.map(admission => {
+              {admissionsData && (admissionsData.map(admission => {
                 return (
                   <tr key={admission.get('AppNo')}>
-                    <td>{moment(admission.get('AppDate')).format('LLLL')}</td>
                     <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
                     <td>{moment(admission.get('DateOfBirth')).format('MM/DD/YYYY')}</td>
-                    <td>{admission.get('Gender')}</td>
+                    <td>{admission.get('Gender') === 'M' ? 'Male' : 'Female'}</td>
                     <td>{admission.get('CivilStatusID')}</td>
                     <td>{admission.get('Res_Barangay')}</td>
                     <td>{admission.get('Res_TownCity')}</td>
                     <td>{admission.get('Email')}</td>
                     <td>{admission.get('TelNo')}</td>
-                    <td>{admission.get('TermID')}</td>
+                    <td>{aYTermsData && aYTermsData.map((term, i) => {
+                      return term.get('TermID') === admission.get('TermID') ? term.get('AcademicYear') + ' - ' + term.get('SchoolTerm') : null
+                    })}</td>
                     <td>{admission.get('Choice1_CampusID')}</td>
                     <td>{admission.get('Choice1_Course')}</td>
                     <td>{admission.get('Choice1_CourseMajor')}</td>
@@ -133,10 +143,14 @@ class AdmissionTable extends Component {
                     <td>{admission.get('Choice3_CourseMajor')}</td>
                     <td>{admission.get('Father')}</td>
                     <td>{admission.get('Father_Occupation')}</td>
-                    <td>{admission.get('Father_Income')}</td>
+                    <td>{incomeBracketsData && incomeBracketsData.map((income, i) => {
+                      return income.get('income_id') === admission.get('Father_Income') ? '₱' + income.get('income_from') + ' - ' + '₱' + income.get('income_to') : null
+                    })}</td>
                     <td>{admission.get('Mother')}</td>
                     <td>{admission.get('Mother_Occupation')}</td>
-                    <td>{admission.get('Mother_Income')}</td>
+                    <td>{incomeBracketsData && incomeBracketsData.map((income, i) => {
+                      return income.get('income_id') === admission.get('Mother_Income') ? '₱' + income.get('income_from') + ' - ' + '₱' + income.get('income_to') : null
+                    })}</td>
                     <td>{admission.get('Emergency_Contact')}</td>
                     <td>{admission.get('emergency_relation')}</td>
                     <td>{admission.get('Emergency_Address')}</td>
@@ -150,14 +164,22 @@ class AdmissionTable extends Component {
                     <td>{admission.get('College_School')}</td>
                     <td>{admission.get('College_Address')}</td>
                     <td>{admission.get('College_InclDates')}</td>
-                    <td>{admission.get('Track_ID')}</td>
+                    <td>{tracksData && tracksData.map((track, i) => {
+                      return track.get('track_id') === admission.get('Track_ID') ? track.get('track_name') : null
+                    })}</td>
+                    <td>{strandsData && strandsData.map((strand, i) => {
+                      return strand.get('strand_id') === admission.get('Strand_ID') ? strand.get('strand_name') : null
+                    })}</td>
                     <td>{admission.get('Strand_ID')}</td>
                     <td>{admission.get('Other_Strand')}</td>
                     <td>{admission.get('Grade_9')}</td>
                     <td>{admission.get('Grade_10')}</td>
                     <td>{admission.get('Grade_11')}</td>
                     <td>{admission.get('Grade_12')}</td>
-                    <td>{admission.get('ES_Test_Center')}</td>
+                    <td>{testingCentersData && testingCentersData.map((center, i) => {
+                      return center.get('TC_ID') === admission.get('ES_Test_Center') ? center.get('TC_Name') : null
+                    })}</td>
+                    <td>{moment(admission.get('AppDate')).format('LLLL')}</td>
                     {/* <td>{admission.get('roomTypes') && JSON.parse(admission.get('roomTypes')).map(room => {
                       return (<button type='button' className='btn btn-xs btn-pill btn-info'>{room.name}</button>)
                     })}</td>
@@ -185,7 +207,7 @@ class AdmissionTable extends Component {
               </a>
             </li>
             <li>
-              <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (data && data.size === 0) || fetchingAdmissions})}} >
+              <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (admissionsData && admissionsData.size === 0) || fetchingAdmissions})}} >
                 <span aria-hidden='true'>&raquo;</span>
               </a>
             </li>
