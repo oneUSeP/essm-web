@@ -268,14 +268,35 @@ class AdmissionForm extends Component {
       })
     }
 
+    var c1Options = []
+    if (this.props.campusesData) {
+      this.props.campusesData.map(campus => {
+        c1Options.push({target: 'choice1CampusId', value: campus.get('CampusID'), label: campus.get('ShortName') })
+      })
+    }
+
+    var c2Options = []
+    if (this.props.campusesData) {
+      this.props.campusesData.map(campus => {
+        c2Options.push({target: 'choice2CampusId', value: campus.get('CampusID'), label: campus.get('ShortName') })
+      })
+    }
+
+    var c3Options = []
+    if (this.props.campusesData) {
+      this.props.campusesData.map(campus => {
+        c3Options.push({target: 'choice3CampusId', value: campus.get('CampusID'), label: campus.get('ShortName') })
+      })
+    }
+
     sOptions = _.filter(sOptions, (o) => {
       return o.track == this.state.trackId
     })
 
-    var tcOptions = []
+    var t1 = []
     if (this.props.testingCentersData) {
       this.props.testingCentersData.map(center => {
-        tcOptions.push({target: 'testingCenter', value: center.get('TC_ID'), label: center.get('TC_Name') })
+        t1.push({target: 'testingCenter', value: center.get('TC_ID'), label: center.get('TC_Name') })
       })
     }
 
@@ -370,6 +391,12 @@ class AdmissionForm extends Component {
                 <strong className='text-muted'>COURSE PREFERENCES</strong>
                 <div className='form-group row'>
                   <strong className='text-muted'>PREFERENCE 1</strong>
+                  <ReactSelect
+                    value={this.state.choice1CampusId}
+                    onChange={this.handleSelectChange}
+                    options={c1Options}
+                    error={this.state.errors.choice1CampusId}
+                    placeholder={'Campus'} />
                   <TextFieldGroup
                     disabled
                     onChange={this.onChange}
@@ -397,14 +424,12 @@ class AdmissionForm extends Component {
                 </div>
                 <div className='form-group row'>
                   <strong className='text-muted'>PREFERENCE 2</strong>
-                  <TextFieldGroup
-                    disabled
-                    onChange={this.onChange}
+                  <ReactSelect
                     value={this.state.choice2CampusId}
-                    field='choice2CampusId'
-                    placeholder='Campus'
+                    onChange={this.handleSelectChange}
+                    options={c2Options}
                     error={this.state.errors.choice2CampusId}
-                  />
+                    placeholder={'Campus'} />
                   <TextFieldGroup
                     disabled
                     onChange={this.onChange}
@@ -424,14 +449,12 @@ class AdmissionForm extends Component {
                 </div>
                 <div className='form-group row'>
                   <strong className='text-muted'>PREFERENCE 2</strong>
-                  <TextFieldGroup
-                    disabled
-                    onChange={this.onChange}
+                  <ReactSelect
                     value={this.state.choice3CampusId}
-                    field='choice3CampusId'
-                    placeholder='Campus'
+                    onChange={this.handleSelectChange}
+                    options={c3Options}
                     error={this.state.errors.choice3CampusId}
-                  />
+                    placeholder={'Campus'} />
                   <TextFieldGroup
                     disabled
                     onChange={this.onChange}
@@ -672,7 +695,7 @@ class AdmissionForm extends Component {
                   <ReactSelect
                     value={this.state.testingCenter}
                     onChange={this.handleSelectChange}
-                    options={tcOptions}
+                    options={t1}
                     error={this.state.errors.testingCenter}
                     placeholder={'Testing Center'} />
                 </div>

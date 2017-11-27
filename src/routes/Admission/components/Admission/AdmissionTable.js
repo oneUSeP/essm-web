@@ -60,10 +60,11 @@ class AdmissionTable extends Component {
     var strandsData = getData(strands)
     var testingCentersData = getData(testingcenters)
     var tracksData = getData(tracks)
+    var campusesData = getData(campuses)
 
     return (
       <div className='w-full m-x-auto'>
-        <AdmissionModal civilStatusesData={civilStatusesData} incomeBracketsData={incomeBracketsData} aYTermsData={aYTermsData} strandsData={strandsData} testingCentersData={testingCentersData} tracksData={tracksData} selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
+        <AdmissionModal campusesData={campusesData} civilStatusesData={civilStatusesData} incomeBracketsData={incomeBracketsData} aYTermsData={aYTermsData} strandsData={strandsData} testingCentersData={testingCentersData} tracksData={tracksData} selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
         <div className='table-full'>
           <div className='table-responsive'>
             <table className='table' data-sort='table'>
