@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import TextFieldGroup from 'components/common/TextFieldGroup'
+import ReactSelect from 'components/common/ReactSelect'
 import validateInput from 'utils/validators/admission'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import {ModalBody,
@@ -10,6 +11,7 @@ import {ModalBody,
   ToggleButton,
   SplitButton,
   MenuItem } from 'react-bootstrap'
+import _ from 'lodash'
 
 class AdmissionForm extends Component {
   state = {
@@ -73,54 +75,54 @@ class AdmissionForm extends Component {
 
     if (selectedRecord && selectedRecord != null) {
       this.setState({
-        appNo: '' + selectedRecord.get('AppNo') || '',
-        lastName: '' + selectedRecord.get('LastName') || '',
-        firstName: '' + selectedRecord.get('FirstName') || '',
-        middleName: '' + selectedRecord.get('MiddleName') || '',
-        dateOfBirth: '' + selectedRecord.get('DateOfBirth') || '',
-        gender: '' + selectedRecord.get('Gender') || '',
-        civilStatusId: '' + selectedRecord.get('CivilStatusID') || '',
-        resBarangay: '' + selectedRecord.get('Res_Barangay') || '',
-        resTownCity: '' + selectedRecord.get('Res_TownCity') || '',
-        email: '' + selectedRecord.get('Email') || '',
-        telNo: '' + selectedRecord.get('TelNo') || '',
-        termId: '' + selectedRecord.get('TermID') || '',
-        choice1CampusId: '' + selectedRecord.get('Choice1_CampusID') || '',
-        choice1Course: '' + selectedRecord.get('Choice1_Course') || '',
-        choice1CourseMajor: '' + selectedRecord.get('Choice1_CourseMajor') || '',
-        choice2CampusId: '' + selectedRecord.get('Choice2_CampusID') || '',
-        choice2Course: '' + selectedRecord.get('Choice2_Course') || '',
-        choice2CourseMajor: '' + selectedRecord.get('Choice2_CourseMajor') || '',
-        choice3CampusId: '' + selectedRecord.get('Choice3_CampusID') || '',
-        choice3Course: '' + selectedRecord.get('Choice3_Course') || '',
-        choice3CourseMajor: '' + selectedRecord.get('Choice3_CourseMajor') || '',
-        father: '' + selectedRecord.get('Father') || '',
-        fatherOccupation: '' + selectedRecord.get('Father_Occupation') || '',
-        fatherIncome: '' + selectedRecord.get('Father_Income') || '',
-        mother: '' + selectedRecord.get('Mother') || '',
-        motherOccupation: '' + selectedRecord.get('Mother_Occupation') || '',
-        motherIncome: '' + selectedRecord.get('Mother_Income') || '',
-        emergencyContact: '' + selectedRecord.get('Emergency_Contact') || '',
-        emergencyRelation: '' + selectedRecord.get('emergency_relation') || '',
-        emergencyAddress: '' + selectedRecord.get('Emergency_Address') || '',
-        emergencyTelNo: '' + selectedRecord.get('Emergency_TelNo') || '',
-        elemSchool: '' + selectedRecord.get('Elem_School') || '',
-        elemAddress: '' + selectedRecord.get('Elem_Address') || '',
-        elemInclDates: '' + selectedRecord.get('Elem_InclDates') || '',
-        hsSchool: '' + selectedRecord.get('HS_School') || '',
-        hsAddress: '' + selectedRecord.get('HS_Address') || '',
-        hsInclDates: '' + selectedRecord.get('HS_InclDates') || '',
-        collegeSchool: '' + selectedRecord.get('College_School') || '',
-        collegeAddress: '' + selectedRecord.get('College_Address') || '',
-        collegeInclDates: '' + selectedRecord.get('College_InclDates') || '',
-        trackId: '' + selectedRecord.get('Track_ID') || '',
-        strandId: '' + selectedRecord.get('Strand_ID') || '',
-        otherStrand: '' + selectedRecord.get('Other_Strand') || '',
-        grade9: '' + selectedRecord.get('Grade_9') || '',
-        grade10: '' + selectedRecord.get('Grade_10') || '',
-        grade11: '' + selectedRecord.get('Grade_11') || '',
-        grade12: '' + selectedRecord.get('Grade_12') || '',
-        testingCenter: '' + selectedRecord.get('ES_Test_Center') || ''
+        appNo: selectedRecord.get('AppNo') == null ? '' : '' + selectedRecord.get('AppNo'),
+        lastName: selectedRecord.get('LastName') == null ? '' : '' + selectedRecord.get('LastName'),
+        firstName: selectedRecord.get('FirstName') == null ? '' : '' + selectedRecord.get('FirstName'),
+        middleName: selectedRecord.get('MiddleName') == null ? '' : '' + selectedRecord.get('MiddleName'),
+        dateOfBirth: selectedRecord.get('DateOfBirth') == null ? '' : '' + selectedRecord.get('DateOfBirth'),
+        gender: selectedRecord.get('Gender') == null ? '' : '' + selectedRecord.get('Gender'),
+        civilStatusId: selectedRecord.get('CivilStatusID') == null ? '' : '' + selectedRecord.get('CivilStatusID'),
+        resBarangay: selectedRecord.get('Res_Barangay') == null ? '' : '' + selectedRecord.get('Res_Barangay'),
+        resTownCity: selectedRecord.get('Res_TownCity') == null ? '' : '' + selectedRecord.get('Res_TownCity'),
+        email: selectedRecord.get('Email') == null ? '' : '' + selectedRecord.get('Email'),
+        telNo: selectedRecord.get('TelNo') == null ? '' : '' + selectedRecord.get('TelNo'),
+        termId: selectedRecord.get('TermID') == null ? '' : '' + selectedRecord.get('TermID'),
+        choice1CampusId: selectedRecord.get('Choice1_CampusID') == null ? '' : '' + selectedRecord.get('Choice1_CampusID'),
+        choice1Course: selectedRecord.get('Choice1_Course') == null ? '' : '' + selectedRecord.get('Choice1_Course'),
+        choice1CourseMajor: selectedRecord.get('Choice1_CourseMajor') == null ? '' : '' + selectedRecord.get('Choice1_CourseMajor'),
+        choice2CampusId: selectedRecord.get('Choice2_CampusID') == null ? '' : '' + selectedRecord.get('Choice2_CampusID'),
+        choice2Course: selectedRecord.get('Choice2_Course') == null ? '' : '' + selectedRecord.get('Choice2_Course'),
+        choice2CourseMajor: selectedRecord.get('Choice2_CourseMajor') == null ? '' : '' + selectedRecord.get('Choice2_CourseMajor'),
+        choice3CampusId: selectedRecord.get('Choice3_CampusID') == null ? '' : '' + selectedRecord.get('Choice3_CampusID'),
+        choice3Course: selectedRecord.get('Choice3_Course') == null ? '' : '' + selectedRecord.get('Choice3_Course'),
+        choice3CourseMajor: selectedRecord.get('Choice3_CourseMajor') == null ? '' : '' + selectedRecord.get('Choice3_CourseMajor'),
+        father: selectedRecord.get('Father') == null ? '' : '' + selectedRecord.get('Father'),
+        fatherOccupation: selectedRecord.get('Father_Occupation') == null ? '' : '' + selectedRecord.get('Father_Occupation'),
+        fatherIncome: selectedRecord.get('Father_Income') == null ? '' : '' + selectedRecord.get('Father_Income'),
+        mother: selectedRecord.get('Mother') == null ? '' : '' + selectedRecord.get('Mother'),
+        motherOccupation: selectedRecord.get('Mother_Occupation') == null ? '' : '' + selectedRecord.get('Mother_Occupation'),
+        motherIncome: selectedRecord.get('Mother_Income') == null ? '' : '' + selectedRecord.get('Mother_Income'),
+        emergencyContact: selectedRecord.get('Emergency_Contact') == null ? '' : '' + selectedRecord.get('Emergency_Contact'),
+        emergencyRelation: selectedRecord.get('emergency_relation') == null ? '' : '' + selectedRecord.get('emergency_relation'),
+        emergencyAddress: selectedRecord.get('Emergency_Address') == null ? '' : '' + selectedRecord.get('Emergency_Address'),
+        emergencyTelNo: selectedRecord.get('Emergency_TelNo') == null ? '' : '' + selectedRecord.get('Emergency_TelNo'),
+        elemSchool: selectedRecord.get('Elem_School') == null ? '' : '' + selectedRecord.get('Elem_School'),
+        elemAddress: selectedRecord.get('Elem_Address') == null ? '' : '' + selectedRecord.get('Elem_Address'),
+        elemInclDates: selectedRecord.get('Elem_InclDates') == null ? '' : '' + selectedRecord.get('Elem_InclDates'),
+        hsSchool: selectedRecord.get('HS_School') == null ? '' : '' + selectedRecord.get('HS_School'),
+        hsAddress: selectedRecord.get('HS_Address') == null ? '' : '' + selectedRecord.get('HS_Address'),
+        hsInclDates: selectedRecord.get('HS_InclDates') == null ? '' : '' + selectedRecord.get('HS_InclDates'),
+        collegeSchool: selectedRecord.get('College_School') == null ? '' : '' + selectedRecord.get('College_School'),
+        collegeAddress: selectedRecord.get('College_Address') == null ? '' : '' + selectedRecord.get('College_Address'),
+        collegeInclDates: selectedRecord.get('College_InclDates') == null ? '' : '' + selectedRecord.get('College_InclDates'),
+        trackId: selectedRecord.get('Track_ID') == null ? '' : '' + selectedRecord.get('Track_ID'),
+        strandId: selectedRecord.get('Strand_ID') == null ? '' : '' + selectedRecord.get('Strand_ID'),
+        otherStrand: selectedRecord.get('Other_Strand') == null ? '' : '' + selectedRecord.get('Other_Strand'),
+        grade9: selectedRecord.get('Grade_9') == null ? '' : '' + selectedRecord.get('Grade_9'),
+        grade10: selectedRecord.get('Grade_10') == null ? '' : '' + selectedRecord.get('Grade_10'),
+        grade11: selectedRecord.get('Grade_11') == null ? '' : '' + selectedRecord.get('Grade_11'),
+        grade12: selectedRecord.get('Grade_12') == null ? '' : '' + selectedRecord.get('Grade_12'),
+        testingCenter: selectedRecord.get('ES_Test_Center') == null ? '' : '' + selectedRecord.get('ES_Test_Center')
       })
     }
   }
@@ -202,10 +204,76 @@ class AdmissionForm extends Component {
       } else {
         // this.props.createTrack(data)
       }
+    } else {
+      this.setState({verify: null})
+    }
+  }
+
+  handleSelectChange = (e) => {
+    if (e.target == 'trackId') {
+      this.setState({[e.target]: '' + e.value, strandId: ''})
+    } else {
+      this.setState({ [e.target]: '' + e.value })
     }
   }
 
   render () {
+    var genderOptions = [
+      { target: 'gender', value: 'F', label: 'Female' },
+      { target: 'gender', value: 'M', label: 'Male' }
+    ]
+    var csOptions = []
+    if (this.props.civilStatusesData) {
+      this.props.civilStatusesData.map(status => {
+        csOptions.push({target: 'civilStatusId', value: status.get('StatusID'), label: status.get('CivilDesc')})
+      })
+    }
+    var aytOptions = []
+    if (this.props.aYTermsData) {
+      this.props.aYTermsData.map(ayt => {
+        aytOptions.push({target: 'termId', value: ayt.get('TermID'), label: ayt.get('SchoolTerm') + ' - ' + ayt.get('AcademicYear') })
+      })
+    }
+
+    var faibOptions = []
+    if (this.props.incomeBracketsData) {
+      this.props.incomeBracketsData.map(ai => {
+        faibOptions.push({target: 'fatherIncome', value: ai.get('income_id'), label: '₱ ' + ai.get('income_from') + ' - ₱ ' + ai.get('income_to') })
+      })
+    }
+
+    var maibOptions = []
+    if (this.props.incomeBracketsData) {
+      this.props.incomeBracketsData.map(ai => {
+        maibOptions.push({target: 'motherIncome', value: ai.get('income_id'), label: '₱ ' + ai.get('income_from') + ' - ₱ ' + ai.get('income_to') })
+      })
+    }
+
+    var tOptions = []
+    if (this.props.tracksData) {
+      this.props.tracksData.map(track => {
+        tOptions.push({target: 'trackId', value: track.get('track_id'), label: track.get('track_name') })
+      })
+    }
+
+    var sOptions = []
+    if (this.props.strandsData) {
+      this.props.strandsData.map(strand => {
+        sOptions.push({target: 'strandId', track: strand.get('track_id'), value: strand.get('strand_id'), label: strand.get('strand_name') })
+      })
+    }
+
+    sOptions = _.filter(sOptions, (o) => {
+      return o.track == this.state.trackId
+    })
+
+    var tcOptions = []
+    if (this.props.testingCentersData) {
+      this.props.testingCentersData.map(center => {
+        tcOptions.push({target: 'testingCenter', value: center.get('TC_ID'), label: center.get('TC_Name') })
+      })
+    }
+
     return (
       <form className='form-access' >
         {this.state.verify}
@@ -243,20 +311,16 @@ class AdmissionForm extends Component {
                     placeholder='Birthday'
                     error={this.state.errors.dateOfBirth}
                   />
-                  <TextFieldGroup
-                    onChange={this.onChange}
+                  <ReactSelect
                     value={this.state.gender}
-                    field='gender'
-                    placeholder='Gender'
-                    error={this.state.errors.gender}
-                  />
-                  <TextFieldGroup
-                    onChange={this.onChange}
+                    onChange={this.handleSelectChange}
+                    options={genderOptions}
+                    error={this.state.errors.gender} />
+                  <ReactSelect
                     value={this.state.civilStatusId}
-                    field='civilStatusId'
-                    placeholder='Status'
-                    error={this.state.errors.civilStatusId}
-                  />
+                    onChange={this.handleSelectChange}
+                    options={csOptions}
+                    error={this.state.errors.civilStatusId} />
                   <TextFieldGroup
                     onChange={this.onChange}
                     value={this.state.resBarangay}
@@ -285,13 +349,11 @@ class AdmissionForm extends Component {
                     placeholder='Contact Number'
                     error={this.state.errors.telNo}
                   />
-                  <TextFieldGroup
-                    onChange={this.onChange}
+                  <ReactSelect
                     value={this.state.termId}
-                    field='termId'
-                    placeholder='Academic Year Applied'
-                    error={this.state.errors.termId}
-                />
+                    onChange={this.handleSelectChange}
+                    options={aytOptions}
+                    error={this.state.errors.termId} />
                 </div>
               </div>
             </div>
@@ -301,6 +363,7 @@ class AdmissionForm extends Component {
                 <div className='form-group row'>
                   <strong className='text-muted'>PREFERENCE 1</strong>
                   <TextFieldGroup
+                    disabled
                     onChange={this.onChange}
                     value={this.state.choice1CampusId}
                     field='choice1CampusId'
@@ -308,6 +371,7 @@ class AdmissionForm extends Component {
                     error={this.state.errors.choice1CampusId}
                   />
                   <TextFieldGroup
+                    disabled
                     onChange={this.onChange}
                     value={this.state.choice1Course}
                     field='choice1Course'
@@ -315,6 +379,7 @@ class AdmissionForm extends Component {
                     error={this.state.errors.choice1Course}
                   />
                   <TextFieldGroup
+                    disabled
                     onChange={this.onChange}
                     value={this.state.choice1CourseMajor}
                     field='choice1CourseMajor'
@@ -325,6 +390,7 @@ class AdmissionForm extends Component {
                 <div className='form-group row'>
                   <strong className='text-muted'>PREFERENCE 2</strong>
                   <TextFieldGroup
+                    disabled
                     onChange={this.onChange}
                     value={this.state.choice2CampusId}
                     field='choice2CampusId'
@@ -332,6 +398,7 @@ class AdmissionForm extends Component {
                     error={this.state.errors.choice2CampusId}
                   />
                   <TextFieldGroup
+                    disabled
                     onChange={this.onChange}
                     value={this.state.choice2Course}
                     field='choice2Course'
@@ -339,6 +406,7 @@ class AdmissionForm extends Component {
                     error={this.state.errors.choice2Course}
                   />
                   <TextFieldGroup
+                    disabled
                     onChange={this.onChange}
                     value={this.state.choice2CourseMajor}
                     field='choice2CourseMajor'
@@ -349,6 +417,7 @@ class AdmissionForm extends Component {
                 <div className='form-group row'>
                   <strong className='text-muted'>PREFERENCE 2</strong>
                   <TextFieldGroup
+                    disabled
                     onChange={this.onChange}
                     value={this.state.choice3CampusId}
                     field='choice3CampusId'
@@ -356,6 +425,7 @@ class AdmissionForm extends Component {
                     error={this.state.errors.choice3CampusId}
                   />
                   <TextFieldGroup
+                    disabled
                     onChange={this.onChange}
                     value={this.state.choice3Course}
                     field='choice3Course'
@@ -363,6 +433,7 @@ class AdmissionForm extends Component {
                     error={this.state.errors.choice3Course}
                   />
                   <TextFieldGroup
+                    disabled
                     onChange={this.onChange}
                     value={this.state.choice3CourseMajor}
                     field='choice3CourseMajor'
@@ -393,13 +464,11 @@ class AdmissionForm extends Component {
                     placeholder='Father/Guardian Occupation'
                     error={this.state.errors.fatherOccupation}
                     />
-                  <TextFieldGroup
-                    onChange={this.onChange}
+                  <ReactSelect
                     value={this.state.fatherIncome}
-                    field='fatherIncome'
-                    placeholder='Father/Guardian Income'
-                    error={this.state.errors.fatherIncome}
-                  />
+                    onChange={this.handleSelectChange}
+                    options={faibOptions}
+                    error={this.state.errors.fatherIncome} />
                 </div>
                 <div className='form-group row'>
                   <strong className='text-muted'>MOTHER</strong>
@@ -417,13 +486,11 @@ class AdmissionForm extends Component {
                     placeholder='Mother`s Occupation'
                     error={this.state.errors.motherOccupation}
                     />
-                  <TextFieldGroup
-                    onChange={this.onChange}
+                  <ReactSelect
                     value={this.state.motherIncome}
-                    field='motherIncome'
-                    placeholder='Mother`s Income'
-                    error={this.state.errors.motherIncome}
-                  />
+                    onChange={this.handleSelectChange}
+                    options={maibOptions}
+                    error={this.state.errors.motherIncome} />
                 </div>
               </div>
             </div>
@@ -454,10 +521,10 @@ class AdmissionForm extends Component {
                   />
                   <TextFieldGroup
                     onChange={this.onChange}
-                    value={this.state.emergencyContact}
-                    field='emergencyContact'
+                    value={this.state.emergencyTelNo}
+                    field='emergencyTelNo'
                     placeholder='Contact Number'
-                    error={this.state.errors.emergencyContact}
+                    error={this.state.errors.emergencyTelNo}
                   />
                 </div>
               </div>
@@ -545,20 +612,16 @@ class AdmissionForm extends Component {
               <div className='w-lg m-x-auto'>
                 <strong className='text-muted'>SCHOLASTIC BACKGROUND</strong>
                 <div className='form-group row'>
-                  <TextFieldGroup
-                    onChange={this.onChange}
+                  <ReactSelect
                     value={this.state.trackId}
-                    field='trackId'
-                    placeholder='Senior High School Track'
-                    error={this.state.errors.trackId}
-                  />
-                  <TextFieldGroup
-                    onChange={this.onChange}
+                    onChange={this.handleSelectChange}
+                    options={tOptions}
+                    error={this.state.errors.trackId} />
+                  <ReactSelect
                     value={this.state.strandId}
-                    field='strandId'
-                    placeholder='Senior High School Strand	'
-                    error={this.state.errors.strandId}
-                  />
+                    onChange={this.handleSelectChange}
+                    options={sOptions}
+                    error={this.state.errors.strandId} />
                   <TextFieldGroup
                     onChange={this.onChange}
                     value={this.state.otherStrand}
@@ -594,13 +657,11 @@ class AdmissionForm extends Component {
                     placeholder='Grade 12'
                     error={this.state.errors.grade12}
                   />
-                  <TextFieldGroup
-                    onChange={this.onChange}
+                  <ReactSelect
                     value={this.state.testingCenter}
-                    field='testingCenter'
-                    placeholder='Testing Center'
-                    error={this.state.errors.testingCenter}
-                  />
+                    onChange={this.handleSelectChange}
+                    options={tcOptions}
+                    error={this.state.errors.testingCenter} />
                 </div>
               </div>
             </div>

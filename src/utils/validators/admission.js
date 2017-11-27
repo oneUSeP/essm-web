@@ -44,6 +44,14 @@ export default function validateInput (data) {
     errors.termId = 'Academic Year Applied is required'
   }
 
+  if (Validator.isNull(data.trackId)) {
+    errors.trackId = 'Track is required'
+  }
+
+  if (Validator.isNull(data.strandId)) {
+    errors.strandId = 'Track Strand is required'
+  }
+
   if (Validator.isNull(data.grade9)) {
     errors.grade9 = 'Grade 9 GPA is required'
   }

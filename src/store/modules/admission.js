@@ -77,6 +77,7 @@ export function createAdmission (data) {
 }
 
 export function updateAdmission (data) {
+  console.log(data)
   return (dispatch, getState) => {
     const { accessToken } = getState().auth.toJS()
     return dispatch({

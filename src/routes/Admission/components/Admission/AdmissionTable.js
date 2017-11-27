@@ -63,7 +63,7 @@ class AdmissionTable extends Component {
 
     return (
       <div className='w-full m-x-auto'>
-        <AdmissionModal selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
+        <AdmissionModal civilStatusesData={civilStatusesData} incomeBracketsData={incomeBracketsData} aYTermsData={aYTermsData} strandsData={strandsData} testingCentersData={testingCentersData} tracksData={tracksData} selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
         <div className='table-full'>
           <div className='table-responsive'>
             <table className='table' data-sort='table'>
