@@ -71,51 +71,11 @@ class AdmissionTable extends Component {
               <thead>
                 <tr>
                   <th>Full Name</th>
-                  <th>Birthday</th>
-                  <th>Gender</th>
-                  <th>Status</th>
-                  <th>Home Address</th>
-                  <th>Alternate Address</th>
                   <th>Email</th>
                   <th>Contact Number</th>
                   <th>Academic Year Applied</th>
-                  <th>(1) Course Pref Campus</th>
-                  <th>(1) Course Pref Course</th>
-                  <th>(1) Course Pref Major</th>
-                  <th>(2) Course Pref Campus</th>
-                  <th>(2) Course Pref Course</th>
-                  <th>(2) Course Pref Major</th>
-                  <th>(3) Course Pref Campus</th>
-                  <th>(3) Course Pref Course</th>
-                  <th>(3) Course Pref Major</th>
-                  <th>Father/Guardian Name</th>
-                  <th>Father's Occupation</th>
-                  <th>Father's Annual Income</th>
-                  <th>Mother/Guardian Name</th>
-                  <th>Mother's Occupation</th>
-                  <th>Mother's Annual Income</th>
-                  <th>Emergency Name</th>
-                  <th>Emergency Relationship</th>
-                  <th>Emergency Address</th>
-                  <th>Emergency Contact Number</th>
-                  <th>Elementary School</th>
-                  <th>Address</th>
-                  <th>Year Graduated</th>
-                  <th>Jr. High School</th>
-                  <th>Address</th>
-                  <th>Year Graduated</th>
-                  <th>Senior High School</th>
-                  <th>Address</th>
-                  <th>Year Graduated</th>
-                  <th>Senior High School Track</th>
-                  <th>Senior High School Strand</th>
-                  <th>Other Strand</th>
-                  <th>Grade 9</th>
-                  <th>Grade 10</th>
-                  <th>Grade 11</th>
-                  <th>Grade 12 (First Sem)</th>
                   <th>Testing Center</th>
-                  <th>Date</th>
+                  <th>Registration Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -123,62 +83,11 @@ class AdmissionTable extends Component {
                 return (
                   <tr key={admission.get('AppNo')}>
                     <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
-                    <td>{moment(admission.get('DateOfBirth')).format('MM/DD/YYYY')}</td>
-                    <td>{admission.get('Gender') === 'M' ? 'Male' : 'Female'}</td>
-                    <td>{civilStatusesData && civilStatusesData.map((status, i) => {
-                      return status.get('StatusID') === admission.get('CivilStatusID') ? status.get('CivilDesc') : null
-                    })}</td>
-                    <td>{admission.get('Res_Barangay')}</td>
-                    <td>{admission.get('Res_TownCity')}</td>
                     <td>{admission.get('Email')}</td>
                     <td>{admission.get('TelNo')}</td>
                     <td>{aYTermsData && aYTermsData.map((term, i) => {
                       return term.get('TermID') === admission.get('TermID') ? term.get('AcademicYear') + ' - ' + term.get('SchoolTerm') : null
                     })}</td>
-                    <td>{admission.get('Choice1_CampusID')}</td>
-                    <td>{admission.get('Choice1_Course')}</td>
-                    <td>{admission.get('Choice1_CourseMajor')}</td>
-                    <td>{admission.get('Choice2_CampusID')}</td>
-                    <td>{admission.get('Choice2_Course')}</td>
-                    <td>{admission.get('Choice2_CourseMajor')}</td>
-                    <td>{admission.get('Choice3_CampusID')}</td>
-                    <td>{admission.get('Choice3_Course')}</td>
-                    <td>{admission.get('Choice3_CourseMajor')}</td>
-                    <td>{admission.get('Father')}</td>
-                    <td>{admission.get('Father_Occupation')}</td>
-                    <td>{incomeBracketsData && incomeBracketsData.map((income, i) => {
-                      return income.get('income_id') === admission.get('Father_Income') ? '₱' + income.get('income_from') + ' - ' + '₱' + income.get('income_to') : null
-                    })}</td>
-                    <td>{admission.get('Mother')}</td>
-                    <td>{admission.get('Mother_Occupation')}</td>
-                    <td>{incomeBracketsData && incomeBracketsData.map((income, i) => {
-                      return income.get('income_id') === admission.get('Mother_Income') ? '₱' + income.get('income_from') + ' - ' + '₱' + income.get('income_to') : null
-                    })}</td>
-                    <td>{admission.get('Emergency_Contact')}</td>
-                    <td>{admission.get('emergency_relation')}</td>
-                    <td>{admission.get('Emergency_Address')}</td>
-                    <td>{admission.get('Emergency_TelNo')}</td>
-                    <td>{admission.get('Elem_School')}</td>
-                    <td>{admission.get('Elem_Address')}</td>
-                    <td>{admission.get('Elem_InclDates')}</td>
-                    <td>{admission.get('HS_School')}</td>
-                    <td>{admission.get('HS_Address')}</td>
-                    <td>{admission.get('HS_InclDates')}</td>
-                    <td>{admission.get('College_School')}</td>
-                    <td>{admission.get('College_Address')}</td>
-                    <td>{admission.get('College_InclDates')}</td>
-                    <td>{tracksData && tracksData.map((track, i) => {
-                      return track.get('track_id') === admission.get('Track_ID') ? track.get('track_name') : null
-                    })}</td>
-                    <td>{strandsData && strandsData.map((strand, i) => {
-                      return strand.get('strand_id') === admission.get('Strand_ID') ? strand.get('strand_name') : null
-                    })}</td>
-                    <td>{admission.get('Strand_ID')}</td>
-                    <td>{admission.get('Other_Strand')}</td>
-                    <td>{admission.get('Grade_9')}</td>
-                    <td>{admission.get('Grade_10')}</td>
-                    <td>{admission.get('Grade_11')}</td>
-                    <td>{admission.get('Grade_12')}</td>
                     <td>{testingCentersData && testingCentersData.map((center, i) => {
                       return center.get('TC_ID') === admission.get('ES_Test_Center') ? center.get('TC_Name') : null
                     })}</td>

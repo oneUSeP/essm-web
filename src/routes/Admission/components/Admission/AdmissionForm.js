@@ -400,14 +400,6 @@ class AdmissionForm extends Component {
                   <TextFieldGroup
                     disabled
                     onChange={this.onChange}
-                    value={this.state.choice1CampusId}
-                    field='choice1CampusId'
-                    placeholder='Campus'
-                    error={this.state.errors.choice1CampusId}
-                  />
-                  <TextFieldGroup
-                    disabled
-                    onChange={this.onChange}
                     value={this.state.choice1Course}
                     field='choice1Course'
                     placeholder='Course'

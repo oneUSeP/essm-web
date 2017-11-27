@@ -14,7 +14,7 @@ class Home extends Component {
           <div className='dashhead'>
             <div className='dashhead-titles'>
               <h6 className='dashhead-subtitle'>USEP-KMSD | ESSM</h6>
-              <h3 className='dashhead-title'>Enrollment System Support Module</h3>
+              <h3 className='dashhead-title'>Admissions Support Module</h3>
             </div>
 
             <div className='btn-toolbar dashhead-toolbar'>
