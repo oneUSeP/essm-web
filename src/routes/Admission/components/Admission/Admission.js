@@ -31,6 +31,12 @@ class Admission extends Component {
     this.props.getTestingCenters(page, count)
   }
 
+  onSubmit = (e) => {
+    e.preventDefault()
+    let {keyword} = this.state
+    this.props.searchAdmissions(keyword)
+  }
+
   render () {
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
@@ -41,12 +47,20 @@ class Admission extends Component {
               <h3 className='dashhead-title'>Registered Applicants</h3>
             </div>
           </div>
-          <div className='w-full m-x-auto'>
-            <div className='btn-toolbar-item input-with-icon'>
-              <input type='text' className='form-control input-block' placeholder='Search' />
-              <span className='icon icon-magnifying-glass' />
+          <form>
+            <div className='flextable'>
+              <div className='flextable-item flextable-primary'>
+                <input type='text' className='form-control' onChange={e => { this.setState({keyword: e.target.value}) }} placeholder='Search Records (Lastname/Firstname)' />
+              </div>
+              <div className='flextable-item'>
+                <div className='btn-group'>
+                  <button type='button' className='btn btn-primary-outline' onClick={this.onSubmit}>
+                    <span className='icon icon-magnifying-glass'></span>
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
         <div className='col-sm-12 content'>
           <AdmissionTable {...this.props} />

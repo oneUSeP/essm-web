@@ -36,6 +36,25 @@ export function getAdmissions (page = 1, count = 10) {
   }
 }
 
+export function searchAdmissions (keyword) {
+  return (dispatch, getState) => {
+    dispatch(showLoading())
+    let endpoint = `/api/v1/admissions/search?keyword=${keyword}`
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint,
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        types: [GET_ADMISSIONS, GET_ADMISSIONS_SUCCESS, GET_ADMISSIONS_FAIL]
+      }
+    }).then(() => { dispatch(hideLoading()) })
+  }
+}
+
 export function createAdmission (data) {
   return (dispatch, getState) => {
     const { accessToken } = getState().auth.toJS()
@@ -101,7 +120,8 @@ export const actions = {
   getAdmissions,
   createAdmission,
   deleteAdmission,
-  updateAdmission
+  updateAdmission,
+  searchAdmissions
 }
 
 // ------------------------------------

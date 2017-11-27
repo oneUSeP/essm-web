@@ -124,7 +124,9 @@ class AdmissionTable extends Component {
                     <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
                     <td>{moment(admission.get('DateOfBirth')).format('MM/DD/YYYY')}</td>
                     <td>{admission.get('Gender') === 'M' ? 'Male' : 'Female'}</td>
-                    <td>{admission.get('CivilStatusID')}</td>
+                    <td>{civilStatusesData && civilStatusesData.map((status, i) => {
+                      return status.get('StatusID') === admission.get('CivilStatusID') ? status.get('CivilDesc') : null
+                    })}</td>
                     <td>{admission.get('Res_Barangay')}</td>
                     <td>{admission.get('Res_TownCity')}</td>
                     <td>{admission.get('Email')}</td>

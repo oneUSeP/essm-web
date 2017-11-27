@@ -7,7 +7,8 @@ import {
   getAdmissions,
   createAdmission,
   updateAdmission,
-  deleteAdmission
+  deleteAdmission,
+  searchAdmissions
 } from 'store/modules/admission'
 import {
   getAyTerms,
@@ -63,7 +64,8 @@ const mapActionCreators = {
   getIncomeBrackets,
   getTracks,
   getStrands,
-  getTestingCenters
+  getTestingCenters,
+  searchAdmissions
 }
 
 const mapStateToProps = (state) => ({
@@ -71,6 +73,7 @@ const mapStateToProps = (state) => ({
   admissions: state.admission.get('admissions'),
   creatingAdmissionSuccess: state.admission.get('creatingAdmissionSuccess'),
   deletingAdmissionSuccess: state.admission.get('deletingAdmissionSuccess'),
+  fetchingAdmissionsSuccess: state.admission.get('fetchingAdmissionsSuccess'),
   ayterms: state.ayterm.get('ayterms'),
   campuses: state.campus.get('campuses'),
   civilstatuses: state.civilstatus.get('civilstatuses'),
