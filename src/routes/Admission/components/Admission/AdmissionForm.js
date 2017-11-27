@@ -62,6 +62,7 @@ class AdmissionForm extends Component {
     grade12: '',
     testingCenter: '',
     active: '0',
+    verify: false,
     errors: [],
     delete: false,
     isLoading: false
@@ -138,8 +139,8 @@ class AdmissionForm extends Component {
     return isValid
   }
 
-  onSubmit = (e) => {
-    e.preventDefault()
+  onSubmit = () => {
+    // e.preventDefault()
     let data = this.state
     if (this.isValid(data)) {
       this.setState({ appNo: '',
@@ -193,9 +194,11 @@ class AdmissionForm extends Component {
         active: '0',
         errors: {},
         delete: false,
-        isLoading: true })
+        isLoading: true,
+        verify: null })
       if (this.props.selectedRecord) {
         this.props.updateAdmission(data)
+        this.props.closeModal()
       } else {
         // this.props.createTrack(data)
       }
@@ -205,7 +208,7 @@ class AdmissionForm extends Component {
   render () {
     return (
       <form className='form-access' >
-        {this.state.delete}
+        {this.state.verify}
         <ModalBody>
           <div className='row text-center m-t-md'>
             <div className='col-sm-6 m-b-md'>
@@ -604,7 +607,20 @@ class AdmissionForm extends Component {
           </div>
         </ModalBody>
         <ModalFooter>
-          <button type='button' className='btn btn-md btn-pill btn-primary' onClick={this.onSubmit}>Save</button>
+          <button type='button' className='btn btn-md btn-pill btn-primary' onClick={e => {
+            this.setState({verify: <SweetAlert
+              warning
+              showCancel
+              confirmBtnText='Yes, update record!'
+              confirmBtnBsStyle='warning'
+              cancelBtnBsStyle='default'
+              title='Are you sure?'
+              onConfirm={e => { this.onSubmit() }}
+              onCancel={e => { this.setState({verify: null}) }}
+            >
+            You are about to update a record. Please review your changes.
+            </SweetAlert>})
+          }}>Save</button>
         </ModalFooter>
       </form>
     )

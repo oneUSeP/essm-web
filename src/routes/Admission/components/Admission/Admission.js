@@ -31,6 +31,18 @@ class Admission extends Component {
     this.props.getTestingCenters(page, count)
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.creatingAdmissionSuccess) {
+      let {page, count} = this.state
+      this.setState({
+        updateSuccess: (<SweetAlert success title='Success!' onConfirm={e => { this.setState({updateSuccess: null}) }}>
+        Record updated.
+        </SweetAlert>)
+      })
+      this.props.getAdmissions(page, count)
+    }
+  }
+
   onSubmit = (e) => {
     e.preventDefault()
     let {keyword} = this.state
@@ -40,6 +52,7 @@ class Admission extends Component {
   render () {
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
+      {this.state.updateSuccess}
         <div className='col-sm-12 content'>
           <div className='dashhead'>
             <div className='dashhead-titles'>
@@ -47,20 +60,18 @@ class Admission extends Component {
               <h3 className='dashhead-title'>Registered Applicants</h3>
             </div>
           </div>
-          <form>
-            <div className='flextable'>
-              <div className='flextable-item flextable-primary'>
-                <input type='text' className='form-control' onChange={e => { this.setState({keyword: e.target.value}) }} placeholder='Search Records (Lastname/Firstname)' />
-              </div>
-              <div className='flextable-item'>
-                <div className='btn-group'>
-                  <button type='button' className='btn btn-primary-outline' onClick={this.onSubmit}>
-                    <span className='icon icon-magnifying-glass'></span>
-                  </button>
-                </div>
+          <div className='flextable'>
+            <div className='flextable-item flextable-primary'>
+              <input type='text' className='form-control' onChange={e => { this.setState({keyword: e.target.value}) }} placeholder='Search Records (Lastname/Firstname)' />
+            </div>
+            <div className='flextable-item'>
+              <div className='btn-group'>
+                <button type='button' className='btn btn-primary-outline' onClick={this.onSubmit}>
+                  <span className='icon icon-magnifying-glass'></span>
+                </button>
               </div>
             </div>
-          </form>
+          </div>
         </div>
         <div className='col-sm-12 content'>
           <AdmissionTable {...this.props} />
