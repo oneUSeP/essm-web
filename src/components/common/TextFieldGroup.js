@@ -15,8 +15,8 @@ class TextFieldGroup extends Component {
           name={field}
           className={classnames('form-control', { 'input-block': inputBlock })}
           disabled={disabled}
-          placeholder={placeholder}
         />
+        <span className='statcard-desc'>{placeholder}</span>
       </div>
     )
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import TextFieldGroup from 'components/common/TextFieldGroup'
+import DatePickerGroup from 'components/common/DatePickerGroup'
 import ReactSelect from 'components/common/ReactSelect'
 import validateInput from 'utils/validators/admission'
 import SweetAlert from 'react-bootstrap-sweetalert'
@@ -217,6 +218,10 @@ class AdmissionForm extends Component {
     }
   }
 
+  onChangeDate = (e) => {
+    this.setState({dateOfBirth: e})
+  }
+
   render () {
     var genderOptions = [
       { target: 'gender', value: 'F', label: 'Female' },
@@ -304,23 +309,25 @@ class AdmissionForm extends Component {
                     placeholder='Middle Name'
                     error={this.state.errors.middleName}
                   />
-                  <TextFieldGroup
-                    onChange={this.onChange}
-                    value={this.state.dateOfBirth}
+                  <DatePickerGroup
                     field='dateOfBirth'
+                    value={this.state.dateOfBirth}
                     placeholder='Birthday'
+                    onChange={this.onChangeDate}
                     error={this.state.errors.dateOfBirth}
                   />
                   <ReactSelect
                     value={this.state.gender}
                     onChange={this.handleSelectChange}
                     options={genderOptions}
-                    error={this.state.errors.gender} />
+                    error={this.state.errors.gender}
+                    placeholder={'Gender'} />
                   <ReactSelect
                     value={this.state.civilStatusId}
                     onChange={this.handleSelectChange}
                     options={csOptions}
-                    error={this.state.errors.civilStatusId} />
+                    error={this.state.errors.civilStatusId}
+                    placeholder={'Status'} />
                   <TextFieldGroup
                     onChange={this.onChange}
                     value={this.state.resBarangay}
@@ -353,7 +360,8 @@ class AdmissionForm extends Component {
                     value={this.state.termId}
                     onChange={this.handleSelectChange}
                     options={aytOptions}
-                    error={this.state.errors.termId} />
+                    error={this.state.errors.termId}
+                    placeholder={'Academic Year'} />
                 </div>
               </div>
             </div>
@@ -468,7 +476,8 @@ class AdmissionForm extends Component {
                     value={this.state.fatherIncome}
                     onChange={this.handleSelectChange}
                     options={faibOptions}
-                    error={this.state.errors.fatherIncome} />
+                    error={this.state.errors.fatherIncome}
+                    placeholder={'Father`s Annual Income'} />
                 </div>
                 <div className='form-group row'>
                   <strong className='text-muted'>MOTHER</strong>
@@ -490,7 +499,8 @@ class AdmissionForm extends Component {
                     value={this.state.motherIncome}
                     onChange={this.handleSelectChange}
                     options={maibOptions}
-                    error={this.state.errors.motherIncome} />
+                    error={this.state.errors.motherIncome}
+                    placeholder={'Mother`s Annual Income'} />
                 </div>
               </div>
             </div>
@@ -616,12 +626,14 @@ class AdmissionForm extends Component {
                     value={this.state.trackId}
                     onChange={this.handleSelectChange}
                     options={tOptions}
-                    error={this.state.errors.trackId} />
+                    error={this.state.errors.trackId}
+                    placeholder={'Track'} />
                   <ReactSelect
                     value={this.state.strandId}
                     onChange={this.handleSelectChange}
                     options={sOptions}
-                    error={this.state.errors.strandId} />
+                    error={this.state.errors.strandId}
+                    placeholder={'Strand'} />
                   <TextFieldGroup
                     onChange={this.onChange}
                     value={this.state.otherStrand}
@@ -661,7 +673,8 @@ class AdmissionForm extends Component {
                     value={this.state.testingCenter}
                     onChange={this.handleSelectChange}
                     options={tcOptions}
-                    error={this.state.errors.testingCenter} />
+                    error={this.state.errors.testingCenter}
+                    placeholder={'Testing Center'} />
                 </div>
               </div>
             </div>

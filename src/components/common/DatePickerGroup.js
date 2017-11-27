@@ -10,13 +10,12 @@ class DatePickerGroup extends Component {
       <div className={classnames('form-group', { 'has-error': error })}>
         {error && <small className='help-block text-right'>{error}</small>}
         <DatePicker
-          id='reservation-datepicker'
-          name={field}
+          id='birthday-datepicker'
           value={value}
           disabled={disabled}
           placeholder={placeholder}
           onChange={onChange}
-          minDate={minDate || `${new Date().toISOString()}`}
+          minDate={minDate}
           maxDate={maxDate} />
           <span className='statcard-desc'>{placeholder}</span>
       </div>
