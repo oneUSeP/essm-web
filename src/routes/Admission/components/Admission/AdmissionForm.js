@@ -104,7 +104,7 @@ class AdmissionForm extends Component {
         motherOccupation: selectedRecord.get('Mother_Occupation') == null ? '' : '' + selectedRecord.get('Mother_Occupation'),
         motherIncome: selectedRecord.get('Mother_Income') == null ? '' : '' + selectedRecord.get('Mother_Income'),
         emergencyContact: selectedRecord.get('Emergency_Contact') == null ? '' : '' + selectedRecord.get('Emergency_Contact'),
-        emergencyRelation: selectedRecord.get('Emergency_Relation') == null ? '' : '' + selectedRecord.get('emergency_relation'),
+        emergencyRelation: selectedRecord.get('Emergency_Relation') == null ? '' : '' + selectedRecord.get('Emergency_Relation'),
         emergencyAddress: selectedRecord.get('Emergency_Address') == null ? '' : '' + selectedRecord.get('Emergency_Address'),
         emergencyTelNo: selectedRecord.get('Emergency_TelNo') == null ? '' : '' + selectedRecord.get('Emergency_TelNo'),
         elemSchool: selectedRecord.get('Elem_School') == null ? '' : '' + selectedRecord.get('Elem_School'),
