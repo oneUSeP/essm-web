@@ -133,6 +133,7 @@
     "react-router-active-component": "^4.0.0",
     "react-router-redux": "^4.0.0",
     "react-s-alert": "^1.2.2",
+    "react-select": "^1.1.0",
     "react-slick": "^0.14.11",
     "react-stack-grid": "^0.4.0",
     "redux": "^3.0.0",
