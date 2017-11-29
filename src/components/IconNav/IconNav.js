@@ -10,7 +10,7 @@ class NavBar extends Component {
     return (
       <nav className='iconav'>
         <Link to='/' className='iconav-brand'>
-          <img src='http://localhost:3000/usep-logo.png' width='25' />
+          <img src='http://192.168.1.195:3000/usep-logo.png' width='25' />
         </Link>
         <div className='iconav-slider'>
           <ul className='nav nav-pills iconav-nav' role='tablist'>
