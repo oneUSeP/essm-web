@@ -62,7 +62,7 @@ class Admission extends Component {
           </div>
           <div className='flextable'>
             <div className='flextable-item flextable-primary'>
-              <input type='text' className='form-control' onChange={e => { this.setState({keyword: e.target.value}) }} placeholder='Search Records (Lastname/Firstname)' />
+              <input type='text' className='form-control' onChange={e => { this.setState({keyword: e.target.value}) }} placeholder='Search (Lastname/Firstname/Email/ContactNumber)' />
             </div>
             <div className='flextable-item'>
               <div className='btn-group'>

@@ -18,7 +18,7 @@ class AdmissionModal extends Component {
       <Modal isOpen={this.props.open} size='modal-lg' onRequestHide={this.hideModal}>
         <ModalHeader>
           <ModalClose onClick={this.hideModal} />
-          <ModalTitle >Update Record</ModalTitle>
+          <ModalTitle >Update Record {this.props.selectedRecord && this.props.selectedRecord.get('AppNo')}</ModalTitle>
         </ModalHeader>
         <AdmissionForm {...this.props} />
       </Modal>
