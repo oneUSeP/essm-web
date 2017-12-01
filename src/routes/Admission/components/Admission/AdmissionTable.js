@@ -86,7 +86,7 @@ class AdmissionTable extends Component {
                   <tr key={admission.get('AppNo')}>
                     <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
                     <td>{interviewsData && interviewsData.map((sched, i) => {
-                      return sched.get('AppNo') === admission.get('AppNo') ? moment(admission.get('InterviewDate')).format('LLLL') : null
+                      return sched.get('AppNo') === admission.get('AppNo') ? moment(admission.get('InterviewDate')).format('MMM. D, YYYY') : null
                     })}</td>
                     <td>{admission.get('Email')}</td>
                     <td>{admission.get('TelNo')}</td>
@@ -96,7 +96,7 @@ class AdmissionTable extends Component {
                     <td>{testingCentersData && testingCentersData.map((center, i) => {
                       return center.get('TC_ID') === admission.get('ES_Test_Center') ? center.get('TC_Name') : null
                     })}</td>
-                    <td>{moment(admission.get('AppDate')).format('LLLL')}</td>
+                    <td>{moment(admission.get('AppDate')).format('MMM. D, YYYY')}</td>
                     {/* <td>{admission.get('roomTypes') && JSON.parse(admission.get('roomTypes')).map(room => {
                       return (<button type='button' className='btn btn-xs btn-pill btn-info'>{room.name}</button>)
                     })}</td>
