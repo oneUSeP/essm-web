@@ -29,6 +29,7 @@ class Admission extends Component {
     this.props.getStrands(page, count)
     this.props.getTracks(page, count)
     this.props.getTestingCenters(page, count)
+    this.props.getInterviews(page, 9999)
   }
 
   componentWillReceiveProps (nextProps) {

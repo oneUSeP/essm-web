@@ -52,7 +52,12 @@ import {
   updateTestingCenter,
   deleteTestingCenter
 } from 'store/modules/testingcenter'
-
+import {
+  getInterviews,
+  createInterview,
+  updateInterview,
+  deleteInterview
+} from 'store/modules/interview'
 const mapActionCreators = {
   getAdmissions,
   createAdmission,
@@ -65,7 +70,8 @@ const mapActionCreators = {
   getTracks,
   getStrands,
   getTestingCenters,
-  searchAdmissions
+  searchAdmissions,
+  getInterviews
 }
 
 const mapStateToProps = (state) => ({
@@ -80,7 +86,8 @@ const mapStateToProps = (state) => ({
   incomebrackets: state.incomebracket.get('incomebrackets'),
   strands: state.strand.get('strands'),
   tracks: state.track.get('tracks'),
-  testingcenters: state.testingcenter.get('testingcenters')
+  testingcenters: state.testingcenter.get('testingcenters'),
+  interviews: state.interview.get('interviews')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Admission)

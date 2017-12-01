@@ -51,7 +51,7 @@ class AdmissionTable extends Component {
   render () {
     let { admissions, fetchingAdmissions, ayterms,
       campuses, civilstatuses, incomebrackets, strands,
-      testingcenters, tracks } = this.props
+      testingcenters, tracks, interviews } = this.props
 
     var admissionsData = getData(admissions)
     var civilStatusesData = getData(civilstatuses)
@@ -61,6 +61,7 @@ class AdmissionTable extends Component {
     var testingCentersData = getData(testingcenters)
     var tracksData = getData(tracks)
     var campusesData = getData(campuses)
+    var interviewsData = getData(interviews)
 
     return (
       <div className='w-full m-x-auto'>
@@ -71,6 +72,7 @@ class AdmissionTable extends Component {
               <thead>
                 <tr>
                   <th>Full Name</th>
+                  <th>Schedule</th>
                   <th>Email</th>
                   <th>Contact Number</th>
                   <th>Academic Year Applied</th>
@@ -83,6 +85,9 @@ class AdmissionTable extends Component {
                 return (
                   <tr key={admission.get('AppNo')}>
                     <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
+                    <td>{interviewsData && interviewsData.map((sched, i) => {
+                      return sched.get('AppNo') === admission.get('AppNo') ? moment(admission.get('InterviewDate')).format('LLLL') : null
+                    })}</td>
                     <td>{admission.get('Email')}</td>
                     <td>{admission.get('TelNo')}</td>
                     <td>{aYTermsData && aYTermsData.map((term, i) => {
