@@ -467,6 +467,7 @@ class AdmissionForm extends Component {
               </div>
             </div>
           </div>
+          <hr className='m-t-0 m-b-md' />
           <div className='row text-center m-t-md'>
             <div className='col-sm-6 m-b-md'>
               <div className='w-lg m-x-auto'>
@@ -555,6 +556,7 @@ class AdmissionForm extends Component {
               </div>
             </div>
           </div>
+          <hr className='m-t-0 m-b-md' />
           <div className='row text-center m-t-md'>
             <div className='col-sm-6 m-b-md'>
               <div className='w-lg m-x-auto'>
