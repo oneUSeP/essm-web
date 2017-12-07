@@ -123,12 +123,12 @@ class AdmissionTable extends Component {
         <div className='text-center'>
           <ul className='pagination'>
             <li>
-              <a aria-label='Previous' onClick={e => this.handlePaginationClick('prev')} style={{display: cx({'none': this.state.page < 2 || fetchingAdmissions})}} >
+              <a aria-label='Previous' onClick={e => this.handlePaginationClick('prev')} style={{display: cx({'none': this.state.page < 2 || fetchingAdmissions || this.props.isSearch})}} >
                 <span aria-hidden='true'>&laquo;</span>
               </a>
             </li>
             <li>
-              <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (admissionsData && admissionsData.size === 0) || fetchingAdmissions})}} >
+              <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (admissionsData && admissionsData.size === 0) || fetchingAdmissions || this.props.isSearch})}} >
                 <span aria-hidden='true'>&raquo;</span>
               </a>
             </li>

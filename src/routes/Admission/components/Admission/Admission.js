@@ -17,7 +17,8 @@ class Admission extends Component {
       page: 1,
       count: 99,
       filterReq: '',
-      filterUpd: ''
+      filterUpd: '',
+      isSearch: false
     }
   }
 
@@ -56,6 +57,7 @@ class Admission extends Component {
     if (filterUpd) {
       filter.push('updated_at')
     }
+    this.setState({isSearch: true})
     this.props.searchAdmissions(keyword, filter)
   }
 
@@ -119,7 +121,7 @@ class Admission extends Component {
           </div>
         </div>
         <div className='col-sm-12 content'>
-          <AdmissionTable {...this.props} />
+          <AdmissionTable isSearch={this.state.isSearch} {...this.props} />
         </div>
       </div>
     )
