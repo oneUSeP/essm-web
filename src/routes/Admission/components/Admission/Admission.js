@@ -18,6 +18,10 @@ class Admission extends Component {
       count: 99,
       filterReq: '',
       filterUpd: '',
+      filterTelNo: '',
+      filterEmail: '',
+      filterFirstName: '',
+      filterLastName: '',
       isSearch: false
     }
   }
@@ -49,13 +53,25 @@ class Admission extends Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    let {keyword, filterReq, filterUpd} = this.state
+    let {keyword, filterReq, filterUpd, filterEmail, filterFirstName, filterLastName, filterTelNo} = this.state
     let filter = []
     if (filterReq) {
       filter.push('is_reqcomplete')
     }
     if (filterUpd) {
       filter.push('updated_at')
+    }
+    if (filterEmail) {
+      filter.push('Email')
+    }
+    if (filterFirstName) {
+      filter.push('FirstName')
+    }
+    if (filterLastName) {
+      filter.push('LastName')
+    }
+    if (filterTelNo) {
+      filter.push('TelNo')
     }
     this.setState({isSearch: true})
     this.props.searchAdmissions(keyword, filter)
@@ -76,6 +92,34 @@ class Admission extends Component {
         this.setState({filterUpd: false})
       }
     }
+    if (e.target.value === 'TelNo') {
+      if (e.target.checked) {
+        this.setState({filterTelNo: true})
+      } else {
+        this.setState({filterTelNo: false})
+      }
+    }
+    if (e.target.value === 'Email') {
+      if (e.target.checked) {
+        this.setState({filterEmail: true})
+      } else {
+        this.setState({filterEmail: false})
+      }
+    }
+    if (e.target.value === 'LastName') {
+      if (e.target.checked) {
+        this.setState({filterLastName: true})
+      } else {
+        this.setState({filterLastName: false})
+      }
+    }
+    if (e.target.value === 'FirstName') {
+      if (e.target.checked) {
+        this.setState({filterFirstName: true})
+      } else {
+        this.setState({filterFirstName: false})
+      }
+    }
   }
 
   render () {
@@ -91,7 +135,7 @@ class Admission extends Component {
           </div>
           <div className='flextable'>
             <div className='flextable-item flextable-primary'>
-              <input type='text' className='form-control' onChange={e => { this.setState({keyword: e.target.value}) }} placeholder='Search (Lastname)' />
+              <input type='text' className='form-control' onChange={e => { this.setState({keyword: e.target.value}) }} placeholder='Search' />
             </div>
             <div className='flextable-item'>
               <div className='btn-group'>
@@ -102,6 +146,36 @@ class Admission extends Component {
             </div>
           </div>
           <div className='flextable'>
+            <div className='flextable-item'>
+              <div className='checkbox-inline custom-control custom-checkbox'>
+                <label>
+                  <input type='checkbox' value={'FirstName'} onChange={e => { this.handleFilterChange(e) }} />
+                  <span className='custom-control-indicator'></span>
+                  First Name
+                </label>
+              </div>
+              <div className='checkbox-inline custom-control custom-checkbox'>
+                <label>
+                  <input type='checkbox' value={'LastName'} onChange={e => { this.handleFilterChange(e) }} />
+                  <span className='custom-control-indicator'></span>
+                  Last Name
+                </label>
+              </div>
+              <div className='checkbox-inline custom-control custom-checkbox'>
+                <label>
+                  <input type='checkbox' value={'Email'} onChange={e => { this.handleFilterChange(e) }} />
+                  <span className='custom-control-indicator'></span>
+                  Email
+                </label>
+              </div>
+              <div className='checkbox-inline custom-control custom-checkbox'>
+                <label>
+                  <input type='checkbox' value={'TelNo'} onChange={e => { this.handleFilterChange(e) }} />
+                  <span className='custom-control-indicator'></span>
+                  Contact Number
+                </label>
+              </div>
+            </div>
             <div className='flextable-item'>
               <div className='checkbox-inline custom-control custom-checkbox'>
                 <label>
