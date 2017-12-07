@@ -68,7 +68,9 @@ class AdmissionForm extends Component {
     verify: false,
     errors: [],
     delete: false,
-    isLoading: false
+    isLoading: false,
+    isUpdated: false,
+    isReqComplete: false
   }
 
   componentWillReceiveProps (nextProps) {
@@ -123,7 +125,9 @@ class AdmissionForm extends Component {
         grade10: selectedRecord.get('Grade_10') == null ? '' : '' + selectedRecord.get('Grade_10'),
         grade11: selectedRecord.get('Grade_11') == null ? '' : '' + selectedRecord.get('Grade_11'),
         grade12: selectedRecord.get('Grade_12') == null ? '' : '' + selectedRecord.get('Grade_12'),
-        testingCenter: selectedRecord.get('ES_Test_Center') == null ? '' : '' + selectedRecord.get('ES_Test_Center')
+        testingCenter: selectedRecord.get('ES_Test_Center') == null ? '' : '' + selectedRecord.get('ES_Test_Center'),
+        isUpdated: selectedRecord.get('updated_at') == null ? '' : '' + selectedRecord.get('updated_at'),
+        isReqComplete: selectedRecord.get('is_reqcomplete') == null ? '' : selectedRecord.get('is_reqcomplete')
       })
     }
   }
@@ -198,6 +202,8 @@ class AdmissionForm extends Component {
         errors: {},
         delete: false,
         isLoading: true,
+        isUpdated: false,
+        isReqComplete: false,
         verify: null })
       if (this.props.selectedRecord) {
         this.props.updateAdmission(data)
@@ -223,6 +229,7 @@ class AdmissionForm extends Component {
   }
 
   render () {
+    console.log(this.state.isReqComplete)
     var genderOptions = [
       { target: 'gender', value: 'F', label: 'Female' },
       { target: 'gender', value: 'M', label: 'Male' }
@@ -692,6 +699,25 @@ class AdmissionForm extends Component {
                     options={t1}
                     error={this.state.errors.testingCenter}
                     placeholder={'Testing Center'} />
+                  <div className='form-group'>
+                    <div>
+                    <div className='radio-inline custom-control custom-radio'>
+                      <label>
+                        <input type='radio' id='radio1' name='radio_req' checked={this.state.isReqComplete} onClick={e => { this.setState({isReqComplete: true}) }} />
+                        <span className='custom-control-indicator'></span>
+                        Complete
+                      </label>
+                    </div>
+                    <div className='radio-inline custom-control custom-radio'>
+                      <label>
+                        <input type='radio' id='radio2' name='radio_req' checked={!this.state.isReqComplete} onClick={e => { this.setState({isReqComplete: false}) }} />
+                        <span className='custom-control-indicator'></span>
+                        Incomplete
+                      </label>
+                    </div>
+                    </div>
+                    <span className='statcard-desc'>Requirements</span>
+                  </div>
                 </div>
               </div>
             </div>

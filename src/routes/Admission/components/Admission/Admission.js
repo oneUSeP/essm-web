@@ -57,7 +57,7 @@ class Admission extends Component {
         <div className='col-sm-12 content'>
           <div className='dashhead'>
             <div className='dashhead-titles'>
-              <h6 className='dashhead-subtitle'>USEP-KMSD | ESSM</h6>
+              <h6 className='dashhead-subtitle'>USEP-KMSD | Admission's Support Module</h6>
               <h3 className='dashhead-title'>Registered Applicants</h3>
             </div>
           </div>
@@ -68,8 +68,26 @@ class Admission extends Component {
             <div className='flextable-item'>
               <div className='btn-group'>
                 <button type='button' className='btn btn-primary-outline' onClick={this.onSubmit}>
-                  <span className='icon icon-magnifying-glass'></span>
+                  <span className='icon icon-magnifying-glass'>Search</span>
                 </button>
+              </div>
+            </div>
+          </div>
+          <div className='flextable'>
+            <div className='flextable-item'>
+              <div className='checkbox-inline custom-control custom-checkbox'>
+                <label>
+                  <input type='checkbox' />
+                  <span className='custom-control-indicator'></span>
+                  Complete Requirements
+                </label>
+              </div>
+              <div className='checkbox-inline custom-control custom-checkbox'>
+                <label>
+                  <input type='checkbox' />
+                  <span className='custom-control-indicator'></span>
+                  Updated
+                </label>
               </div>
             </div>
           </div>

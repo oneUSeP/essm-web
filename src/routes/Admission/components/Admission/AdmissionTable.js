@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Immutable from 'immutable'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import PropTypes from 'prop-types'
@@ -73,11 +73,13 @@ class AdmissionTable extends Component {
                 <tr>
                   <th>Full Name</th>
                   <th>Schedule</th>
+                  <th>Requirements</th>
                   <th>Email</th>
                   <th>Contact Number</th>
                   <th>Academic Year Applied</th>
                   <th>Testing Center</th>
                   <th>Registration Date</th>
+                  <th>Updated At</th>
                 </tr>
               </thead>
               <tbody>
@@ -86,8 +88,9 @@ class AdmissionTable extends Component {
                   <tr key={admission.get('AppNo')}>
                     <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
                     <td>{interviewsData && interviewsData.map((sched, i) => {
-                      return sched.get('AppNo') === admission.get('AppNo') ? moment(admission.get('InterviewDate')).format('MMM. D, YYYY') : null
+                      return sched.get('AppNo') === admission.get('AppNo') ? moment(admission.get('InterviewDate')).tz('Asia/Manila').format('MMM. D, YYYY') : null
                     })}</td>
+                    <td>{admission.get('is_reqcomplete') && admission.get('is_reqcomplete') == true ? <button type='button' className='btn btn-xs btn-pill btn-success'>Complete</button> : <button type='button' className='btn btn-xs btn-pill btn-default'>Incomplete</button>}</td>
                     <td>{admission.get('Email')}</td>
                     <td>{admission.get('TelNo')}</td>
                     <td>{aYTermsData && aYTermsData.map((term, i) => {
@@ -96,7 +99,8 @@ class AdmissionTable extends Component {
                     <td>{testingCentersData && testingCentersData.map((center, i) => {
                       return center.get('TC_ID') === admission.get('ES_Test_Center') ? center.get('TC_Name') : null
                     })}</td>
-                    <td>{moment(admission.get('AppDate')).format('MMM. D, YYYY')}</td>
+                    <td>{moment(admission.get('AppDate')).tz('Asia/Manila').format('MMM. D, YYYY')}</td>
+                    <td>{admission.get('updated_at') ? moment(admission.get('updated_at')).tz('Asia/Manila').format('MMM. D, YYYY hh:mm:ss A') : null}</td>
                     {/* <td>{admission.get('roomTypes') && JSON.parse(admission.get('roomTypes')).map(room => {
                       return (<button type='button' className='btn btn-xs btn-pill btn-info'>{room.name}</button>)
                     })}</td>
