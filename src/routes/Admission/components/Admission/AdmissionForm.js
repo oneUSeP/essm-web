@@ -229,7 +229,6 @@ class AdmissionForm extends Component {
   }
 
   render () {
-    console.log(this.state.isReqComplete)
     var genderOptions = [
       { target: 'gender', value: 'F', label: 'Female' },
       { target: 'gender', value: 'M', label: 'Male' }

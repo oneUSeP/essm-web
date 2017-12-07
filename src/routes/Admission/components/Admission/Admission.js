@@ -15,7 +15,9 @@ class Admission extends Component {
       search: '',
       errors: [],
       page: 1,
-      count: 99
+      count: 99,
+      filterReq: '',
+      filterUpd: ''
     }
   }
 
@@ -46,8 +48,32 @@ class Admission extends Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    let {keyword} = this.state
-    this.props.searchAdmissions(keyword)
+    let {keyword, filterReq, filterUpd} = this.state
+    let filter = []
+    if (filterReq) {
+      filter.push('is_reqcomplete')
+    }
+    if (filterUpd) {
+      filter.push('updated_at')
+    }
+    this.props.searchAdmissions(keyword, filter)
+  }
+
+  handleFilterChange = (e) => {
+    if (e.target.value === 'req') {
+      if (e.target.checked) {
+        this.setState({filterReq: true})
+      } else {
+        this.setState({filterReq: false})
+      }
+    }
+    if (e.target.value === 'upd') {
+      if (e.target.checked) {
+        this.setState({filterUpd: true})
+      } else {
+        this.setState({filterUpd: false})
+      }
+    }
   }
 
   render () {
@@ -63,7 +89,7 @@ class Admission extends Component {
           </div>
           <div className='flextable'>
             <div className='flextable-item flextable-primary'>
-              <input type='text' className='form-control' onChange={e => { this.setState({keyword: e.target.value}) }} placeholder='Search (Lastname/Firstname/Email/ContactNumber)' />
+              <input type='text' className='form-control' onChange={e => { this.setState({keyword: e.target.value}) }} placeholder='Search (Lastname)' />
             </div>
             <div className='flextable-item'>
               <div className='btn-group'>
@@ -77,14 +103,14 @@ class Admission extends Component {
             <div className='flextable-item'>
               <div className='checkbox-inline custom-control custom-checkbox'>
                 <label>
-                  <input type='checkbox' />
+                  <input type='checkbox' value={'req'} onChange={e => { this.handleFilterChange(e) }} />
                   <span className='custom-control-indicator'></span>
                   Complete Requirements
                 </label>
               </div>
               <div className='checkbox-inline custom-control custom-checkbox'>
                 <label>
-                  <input type='checkbox' />
+                  <input type='checkbox' value={'upd'} onChange={e => { this.handleFilterChange(e) }} />
                   <span className='custom-control-indicator'></span>
                   Updated
                 </label>

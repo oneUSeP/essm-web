@@ -36,10 +36,10 @@ export function getAdmissions (page = 1, count = 10) {
   }
 }
 
-export function searchAdmissions (keyword) {
+export function searchAdmissions (keyword, filter) {
   return (dispatch, getState) => {
     dispatch(showLoading())
-    let endpoint = `/api/v1/admissions/search?keyword=${keyword}`
+    let endpoint = `/api/v1/admissions/search?keyword=${keyword}&filter=${filter}`
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
