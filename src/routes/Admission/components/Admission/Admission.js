@@ -131,7 +131,6 @@ class Admission extends Component {
   }
 
   render () {
-    console.log(this.state)
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
       {this.state.updateSuccess}
@@ -204,7 +203,7 @@ class Admission extends Component {
           </div>
         </div>
         <div className='col-sm-12 content'>
-          <AdmissionTable isSearch={this.state.isSearch} {...this.props} />
+          <AdmissionTable filters={this.state.filters} isSearch={this.state.isSearch} {...this.props} />
         </div>
       </div>
     )
