@@ -89,6 +89,8 @@ class Admission extends Component {
         s.delete('is_reqcomplete')
         this.setState({filterReq: false, filters: s})
       }
+
+      this.props.getAdmissions(page, count, Array.from(filters))
     }
     if (e.target.value === 'upd') {
       if (e.target.checked) {
@@ -98,6 +100,8 @@ class Admission extends Component {
         s.delete('updated_at')
         this.setState({filterUpd: false, filters: s})
       }
+
+      this.props.getAdmissions(page, count, Array.from(filters))
     }
     if (e.target.value === 'TelNo') {
       if (e.target.checked) {
@@ -127,7 +131,6 @@ class Admission extends Component {
         this.setState({filterFirstName: false})
       }
     }
-    this.props.getAdmissions(page, count, Array.from(filters))
   }
 
   render () {
