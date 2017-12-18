@@ -71,15 +71,15 @@ class AdmissionTable extends Component {
             <table className='table' data-sort='table'>
               <thead>
                 <tr>
-                  <th>Full Name</th>
-                  <th>Schedule</th>
-                  <th>Requirements</th>
-                  <th>Email</th>
-                  <th>Contact Number</th>
-                  <th>Academic Year Applied</th>
-                  <th>Testing Center</th>
-                  <th>Registration Date</th>
-                  <th>Updated At</th>
+                  <th className='header'>Full Name</th>
+                  <th className='header'>Schedule</th>
+                  <th className='header'>Requirements</th>
+                  <th className='header'>Email</th>
+                  <th className='header'>Contact Number</th>
+                  <th className='header'>Academic Year Applied</th>
+                  <th className='header'>Testing Center</th>
+                  <th className='header'>Registration Date</th>
+                  <th className='header'>Updated At</th>
                 </tr>
               </thead>
               <tbody>

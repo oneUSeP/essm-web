@@ -4,7 +4,7 @@ import Select from 'react-select'
 
 class ReactSelect extends Component {
   render () {
-    const { value, onChange, error, options, placeholder } = this.props
+    const { value, onChange, error, options, placeholder, disabled } = this.props
 
     return (
       <div className={classnames('form-group', { 'has-error': error })}>
@@ -14,6 +14,7 @@ class ReactSelect extends Component {
           value={value}
           onChange={onChange}
           options={options}
+          disabled={disabled}
         />
         <span className='statcard-desc'>{placeholder}</span>
       </div>

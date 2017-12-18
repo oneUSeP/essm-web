@@ -22,6 +22,7 @@ class Admission extends Component {
       filterEmail: '',
       filterFirstName: '',
       filterLastName: '',
+      filters: new Set(),
       isSearch: false
     }
   }
@@ -78,18 +79,24 @@ class Admission extends Component {
   }
 
   handleFilterChange = (e) => {
+    let {page, count, filters} = this.state
+    var s = filters
     if (e.target.value === 'req') {
       if (e.target.checked) {
-        this.setState({filterReq: true})
+        s.add('is_reqcomplete')
+        this.setState({filterReq: true, filters: s})
       } else {
-        this.setState({filterReq: false})
+        s.delete('is_reqcomplete')
+        this.setState({filterReq: false, filters: s})
       }
     }
     if (e.target.value === 'upd') {
       if (e.target.checked) {
-        this.setState({filterUpd: true})
+        s.add('updated_at')
+        this.setState({filterUpd: true, filters: s})
       } else {
-        this.setState({filterUpd: false})
+        s.delete('updated_at')
+        this.setState({filterUpd: false, filters: s})
       }
     }
     if (e.target.value === 'TelNo') {
@@ -120,9 +127,11 @@ class Admission extends Component {
         this.setState({filterFirstName: false})
       }
     }
+    this.props.getAdmissions(page, count, Array.from(filters))
   }
 
   render () {
+    console.log(this.state)
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
       {this.state.updateSuccess}

@@ -17,10 +17,10 @@ export default class Login extends Component {
         </div>
         <LoginForm {...this.props} />
         <div className='hr-divider'>
-        <h3 className='hr-divider-content hr-divider-heading'>
-          <Link to='/password/forgot'>Forgot Password</Link>
-        </h3>
-      </div>
+          <h3 className='hr-divider-content hr-divider-heading'>
+            {/* <Link to='/password/forgot'>Forgot Password</Link> */}
+          </h3>
+        </div>
       </div>
     )
   }

@@ -13,7 +13,7 @@ var App = {
       $(document).trigger('redraw.bs.charts')
     })
 
-    // docs top button
+      // docs top button
     if ($('.docs-top').length) {
       App._backToTopButton()
       $(window).on('scroll', App._backToTopButton)
@@ -21,12 +21,11 @@ var App = {
   },
 
   _navDoc: function () {
-    // doc nav js
-    var $toc    = $('#markdown-toc')
+      // doc nav js
+    var $toc = $('#markdown-toc')
     var $window = $(window)
 
     if ($toc[0]) {
-
       maybeActivateDocNavigation()
       $window.on('resize', maybeActivateDocNavigation)
 
@@ -38,7 +37,7 @@ var App = {
         }
       }
 
-      function deactivateDocNavigation() {
+      function deactivateDocNavigation () {
         $window.off('resize.theme.nav')
         $window.off('scroll.theme.nav')
         $toc.css({
@@ -48,19 +47,18 @@ var App = {
         })
       }
 
-      function activateDocNavigation() {
-
+      function activateDocNavigation () {
         var cache = {}
 
-        function updateCache() {
-          cache.containerTop   = $('.docs-content').offset().top - 40
+        function updateCache () {
+          cache.containerTop = $('.docs-content').offset().top - 40
           cache.containerRight = $('.docs-content').offset().left + $('.docs-content').width() + 45
           measure()
         }
 
-        function measure() {
+        function measure () {
           var scrollTop = $window.scrollTop()
-          var distance =  Math.max(scrollTop - cache.containerTop, 0)
+          var distance = Math.max(scrollTop - cache.containerTop, 0)
 
           if (!distance) {
             $($toc.find('li')[1]).addClass('active')
@@ -81,8 +79,8 @@ var App = {
         updateCache()
 
         $(window)
-          .on('resize.theme.nav', updateCache)
-          .on('scroll.theme.nav', measure)
+            .on('resize.theme.nav', updateCache)
+            .on('scroll.theme.nav', measure)
 
         $('body').scrollspy({
           target: '#markdown-toc',
@@ -109,17 +107,15 @@ var App = {
       if (App._isWithTooltips) return
       App._isWithTooltips = true
       $('[data-toggle="tooltip"]').tooltip()
-
     } else {
       if (!App._isWithTooltips) return
       App._isWithTooltips = false
       $('[data-toggle="tooltip"]').tooltip('destroy')
     }
-
   },
 
   _tableSorters: function () {
-    $('[data-sort="table"]').tablesorter( {sortList: [[1,0]]} )
+    $('[data-sort="table"]').tablesorter({sortList: [[1, 0]]})
   }
 }
 

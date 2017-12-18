@@ -17,10 +17,10 @@ export const DELETE_ADMISSION_FAIL = 'api/DELETE_ADMISSION_FAIL'
 // Actions
 // ------------------------------------
 
-export function getAdmissions (page = 1, count = 10) {
+export function getAdmissions (page = 1, count = 10, filter) {
   return (dispatch, getState) => {
     dispatch(showLoading())
-    let endpoint = `/api/v1/admissions?page=${page}&count=${count}`
+    let endpoint = `/api/v1/admissions?page=${page}&count=${count}&filter=${filter}`
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {

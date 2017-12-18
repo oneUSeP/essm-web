@@ -402,7 +402,8 @@ class AdmissionForm extends Component {
                     onChange={this.handleSelectChange}
                     options={c1Options}
                     error={this.state.errors.choice1CampusId}
-                    placeholder={'Campus'} />
+                    placeholder={'Campus'}
+                    disabled />
                   <TextFieldGroup
                     disabled
                     onChange={this.onChange}
@@ -427,7 +428,8 @@ class AdmissionForm extends Component {
                     onChange={this.handleSelectChange}
                     options={c2Options}
                     error={this.state.errors.choice2CampusId}
-                    placeholder={'Campus'} />
+                    placeholder={'Campus'}
+                    disabled />
                   <TextFieldGroup
                     disabled
                     onChange={this.onChange}
@@ -452,7 +454,8 @@ class AdmissionForm extends Component {
                     onChange={this.handleSelectChange}
                     options={c3Options}
                     error={this.state.errors.choice3CampusId}
-                    placeholder={'Campus'} />
+                    placeholder={'Campus'}
+                    disabled />
                   <TextFieldGroup
                     disabled
                     onChange={this.onChange}
