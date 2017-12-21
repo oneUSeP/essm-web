@@ -223,7 +223,7 @@ class Admission extends Component {
                 <label>
                   <input type='checkbox' value={'rank'} onChange={e => { this.handleFilterChange(e) }} />
                   <span className='custom-control-indicator'></span>
-                  Sort By Rank
+                  Sort By Grade
                 </label>
               </div>
             </div>
