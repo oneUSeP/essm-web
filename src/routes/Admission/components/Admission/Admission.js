@@ -18,6 +18,7 @@ class Admission extends Component {
       count: 99,
       filterReq: '',
       filterUpd: '',
+      filterRank: '',
       filterTelNo: '',
       filterEmail: '',
       filterFirstName: '',
@@ -41,26 +42,29 @@ class Admission extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    let {page, count, filters} = this.state
     if (nextProps.creatingAdmissionSuccess) {
-      let {page, count} = this.state
       this.setState({
         updateSuccess: (<SweetAlert success title='Success!' onConfirm={e => { this.setState({updateSuccess: null}) }}>
         Record updated.
         </SweetAlert>)
       })
-      this.props.getAdmissions(page, count)
+      this.props.getAdmissions(page, count, Array.from(filters))
     }
   }
 
   onSubmit = (e) => {
     e.preventDefault()
-    let {keyword, filterReq, filterUpd, filterEmail, filterFirstName, filterLastName, filterTelNo} = this.state
+    let {keyword, filterReq, filterUpd, filterRank, filterEmail, filterFirstName, filterLastName, filterTelNo} = this.state
     let filter = []
     if (filterReq) {
       filter.push('is_reqcomplete')
     }
     if (filterUpd) {
       filter.push('updated_at')
+    }
+    if (filterRank) {
+      filter.push('rank')
     }
     if (filterEmail) {
       filter.push('Email')
@@ -99,6 +103,17 @@ class Admission extends Component {
       } else {
         s.delete('updated_at')
         this.setState({filterUpd: false, filters: s})
+      }
+
+      this.props.getAdmissions(page, count, Array.from(filters))
+    }
+    if (e.target.value === 'rank') {
+      if (e.target.checked) {
+        s.add('rank')
+        this.setState({filterRank: true, filters: s})
+      } else {
+        s.delete('rank')
+        this.setState({filterRank: false, filters: s})
       }
 
       this.props.getAdmissions(page, count, Array.from(filters))
@@ -200,6 +215,15 @@ class Admission extends Component {
                   <input type='checkbox' value={'upd'} onChange={e => { this.handleFilterChange(e) }} />
                   <span className='custom-control-indicator'></span>
                   Updated
+                </label>
+              </div>
+            </div>
+            <div className='flextable-item'>
+              <div className='checkbox-inline custom-control custom-checkbox'>
+                <label>
+                  <input type='checkbox' value={'rank'} onChange={e => { this.handleFilterChange(e) }} />
+                  <span className='custom-control-indicator'></span>
+                  Sort By Rank
                 </label>
               </div>
             </div>

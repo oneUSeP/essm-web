@@ -36,7 +36,7 @@ class AdmissionTable extends Component {
       }
       page += 1
     }
-    this.props.getAdmissions(page, count)
+    this.props.getAdmissions(page, count, Array.from(this.props.filters))
     this.setState({page})
   }
 
