@@ -76,6 +76,7 @@ class AdmissionTable extends Component {
                   <th className='header'>Requirements</th>
                   <th className='header'>Email</th>
                   <th className='header'>Contact Number</th>
+                  <th className='header'>Average Grade</th>
                   <th className='header'>Academic Year Applied</th>
                   <th className='header'>Testing Center</th>
                   <th className='header'>Registration Date</th>
@@ -93,6 +94,7 @@ class AdmissionTable extends Component {
                     <td>{admission.get('is_reqcomplete') && admission.get('is_reqcomplete') == true ? <button type='button' className='btn btn-xs btn-pill btn-success'>Complete</button> : <button type='button' className='btn btn-xs btn-pill btn-default'>Incomplete</button>}</td>
                     <td>{admission.get('Email')}</td>
                     <td>{admission.get('TelNo')}</td>
+                    <td></td>
                     <td>{aYTermsData && aYTermsData.map((term, i) => {
                       return term.get('TermID') === admission.get('TermID') ? term.get('AcademicYear') + ' - ' + term.get('SchoolTerm') : null
                     })}</td>
