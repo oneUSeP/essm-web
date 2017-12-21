@@ -5,6 +5,7 @@ import TextFieldGroup from 'components/common/TextFieldGroup'
 import _ from 'lodash'
 const { List } = require('immutable')
 import AdmissionTable from './AdmissionTable'
+import AdmissionToExcel from './AdmissionToExcel'
 
 class Admission extends Component {
   constructor (props) {
@@ -94,7 +95,7 @@ class Admission extends Component {
         this.setState({filterReq: false, filters: s})
       }
 
-      this.props.getAdmissions(page, count, Array.from(filters))
+      this.props.getAdmissions(page, 9999, Array.from(filters))
     }
     if (e.target.value === 'upd') {
       if (e.target.checked) {
@@ -151,12 +152,13 @@ class Admission extends Component {
   render () {
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
+
       {this.state.updateSuccess}
         <div className='col-sm-12 content'>
           <div className='dashhead'>
             <div className='dashhead-titles'>
               <h6 className='dashhead-subtitle'>USEP-KMSD | Admission's Support Module</h6>
-              <h3 className='dashhead-title'>Registered Applicants</h3>
+              <h3 className='dashhead-title'>Registered Applicants {<AdmissionToExcel {...this.props} />}</h3>
             </div>
           </div>
           <div className='flextable'>

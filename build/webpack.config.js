@@ -44,6 +44,13 @@ webpackConfig.output = {
   publicPath: config.compiler_public_path
 }
 
+webpackConfig.node = {fs: 'empty'}
+
+webpackConfig.externals = [
+  {'./cptable': 'var cptable'},
+  {'./jszip': 'jszip'}
+]
+
 // ------------------------------------
 // Plugins
 // ------------------------------------

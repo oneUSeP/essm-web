@@ -94,7 +94,7 @@ class AdmissionTable extends Component {
                     <td>{admission.get('is_reqcomplete') && admission.get('is_reqcomplete') == true ? <button type='button' className='btn btn-xs btn-pill btn-success'>Complete</button> : <button type='button' className='btn btn-xs btn-pill btn-default'>Incomplete</button>}</td>
                     <td>{admission.get('Email')}</td>
                     <td>{admission.get('TelNo')}</td>
-                    <td></td>
+                    <td>{((admission.get('Grade_9') + admission.get('Grade_10') + admission.get('Grade_11') + admission.get('Grade_12')) / 4 > 99 ? 'Invalid' : (admission.get('Grade_9') + admission.get('Grade_10') + admission.get('Grade_11') + admission.get('Grade_12')) / 4)}</td>
                     <td>{aYTermsData && aYTermsData.map((term, i) => {
                       return term.get('TermID') === admission.get('TermID') ? term.get('AcademicYear') + ' - ' + term.get('SchoolTerm') : null
                     })}</td>
@@ -103,18 +103,6 @@ class AdmissionTable extends Component {
                     })}</td>
                     <td>{moment(admission.get('AppDate')).tz('Asia/Manila').format('MMM. D, YYYY')}</td>
                     <td>{admission.get('updated_at') ? moment(admission.get('updated_at')).tz('Asia/Manila').format('MMM. D, YYYY hh:mm:ss A') : null}</td>
-                    {/* <td>{admission.get('roomTypes') && JSON.parse(admission.get('roomTypes')).map(room => {
-                      return (<button type='button' className='btn btn-xs btn-pill btn-info'>{room.name}</button>)
-                    })}</td>
-                    <td>
-                      <div className='btn-group'>
-                        <button type='button' className='btn btn-primary-outline' onClick={e => (this.setState({selectedBranch: admission, open: true}))}>
-                          <span className='icon icon-pencil' />
-                        </button>
-                        <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(admission.get('code')) }}>
-                          <span className='icon icon-erase' />
-                        </button>
-                      </div></td> */}
                   </tr>
                 )
               }))}
