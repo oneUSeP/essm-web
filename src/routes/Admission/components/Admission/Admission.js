@@ -117,7 +117,7 @@ class Admission extends Component {
         this.setState({filterRank: false, filters: s})
       }
 
-      this.props.getAdmissions(page, count, Array.from(filters))
+      this.props.getAdmissions(page, 9999, Array.from(filters))
     }
     if (e.target.value === 'TelNo') {
       if (e.target.checked) {
@@ -220,7 +220,7 @@ class Admission extends Component {
                 </label>
               </div>
             </div>
-            <div className='flextable-item'>
+            {/* <div className='flextable-item'>
               <div className='checkbox-inline custom-control custom-checkbox'>
                 <label>
                   <input type='checkbox' value={'rank'} onChange={e => { this.handleFilterChange(e) }} />
@@ -228,7 +228,7 @@ class Admission extends Component {
                   Sort By Grade
                 </label>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className='col-sm-12 content'>
