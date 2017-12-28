@@ -5,6 +5,7 @@ import DatePickerGroup from 'components/common/DatePickerGroup'
 import ReactSelect from 'components/common/ReactSelect'
 import validateInput from 'utils/validators/admission'
 import SweetAlert from 'react-bootstrap-sweetalert'
+import Alert from 'react-s-alert'
 import {ModalBody,
   ModalFooter,
   ButtonToolbar,
@@ -77,7 +78,7 @@ class AdmissionForm extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let { selectedRecord } = nextProps
+    let { selectedRecord, fetchingTestingSchedsCountSuccess, schedsCount } = nextProps
 
     if (selectedRecord && selectedRecord != null) {
       this.setState({
@@ -133,6 +134,24 @@ class AdmissionForm extends Component {
         isReqComplete: selectedRecord.get('is_reqcomplete') == null ? '' : selectedRecord.get('is_reqcomplete'),
         isSched: selectedRecord.get('TestingSchedID') != '0'
       })
+    }
+
+    if (fetchingTestingSchedsCountSuccess) {
+      var sched = schedsCount.get('sched')
+      if (schedsCount.get('count') <= sched.get('Limit')) {
+        Alert.success(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).format('h:mm')} - ${moment(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
+          position: 'top-right',
+          effect: 'scale'
+        })
+      } else {
+        Alert.error(`Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
+          position: 'top-right',
+          effect: 'scale',
+          html: true
+        })
+      }
+
+      this.setState({ isSched: true })
     }
   }
 
@@ -226,8 +245,8 @@ class AdmissionForm extends Component {
     if (e.target == 'trackId') {
       this.setState({[e.target]: '' + e.value, strandId: ''})
     } else if (e.target == 'testingSched') {
+      this.setState({ [e.target]: '' + e.value})
       this.props.getTestingSchedsCount(e.value)
-      this.setState({ [e.target]: '' + e.value })
     } else {
       this.setState({ [e.target]: '' + e.value })
     }

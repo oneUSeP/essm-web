@@ -100,7 +100,7 @@ const mapStateToProps = (state) => ({
   scheds: state.testingsched.get('scheds'),
   fetchingTestingSchedsSuccess: state.testingsched.get('fetchingTestingSchedsSuccess'),
   schedsCount: state.testingsched.get('schedsCount'),
-  fetchingTestingSchedCountSuccess: state.testingsched.get('fetchingTestingSchedCountSuccess')
+  fetchingTestingSchedsCountSuccess: state.testingsched.get('fetchingTestingSchedsCountSuccess')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Admission)
