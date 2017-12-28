@@ -14,7 +14,7 @@ import {ModalBody,
   SplitButton,
   MenuItem } from 'react-bootstrap'
 import _ from 'lodash'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 class AdmissionForm extends Component {
   state = {
@@ -140,12 +140,12 @@ class AdmissionForm extends Component {
     if (fetchingTestingSchedsCountSuccess) {
       var sched = schedsCount.get('sched')
       if (schedsCount.get('count') <= sched.get('Limit')) {
-        Alert.success(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).format('h:mm')} - ${moment(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
+        Alert.success(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm')} - ${moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
           position: 'top-right',
           effect: 'scale'
         })
       } else {
-        Alert.error(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).format('h:mm')} - ${moment(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
+        Alert.error(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm')} - ${moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
           position: 'top-right',
           effect: 'scale',
           html: true
@@ -340,7 +340,7 @@ class AdmissionForm extends Component {
       this.props.testingSchedsData.map(sched => {
         this.props.campusesData.map(campus => {
           if (sched.get('CampusID') === campus.get('CampusID')) {
-            tS.push({ target: 'testingSched', value: sched.get('IndexID'), label: campus.get('ShortName') + ' | ' + sched.get('BatchName') + ' | ' + moment(sched.get('TestingDate')).format('MMMM Do YYYY') + ' | ' + moment(sched.get('TimeFrom')).format('h:mm') + ' - ' + moment(sched.get('TimeTo')).format('h:mm') + ' ' + sched.get('Session') })
+            tS.push({ target: 'testingSched', value: sched.get('IndexID'), label: campus.get('ShortName') + ' | ' + sched.get('BatchName') + ' | ' + moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY') + ' | ' + moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm') + ' - ' + moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm') + ' ' + sched.get('Session') })
           }
         })
       })

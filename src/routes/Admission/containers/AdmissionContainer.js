@@ -8,7 +8,8 @@ import {
   createAdmission,
   updateAdmission,
   deleteAdmission,
-  searchAdmissions
+  searchAdmissions,
+  getTestingSchedsCount
 } from 'store/modules/admission'
 import {
   getAyTerms,
@@ -20,8 +21,7 @@ import {
   getTestingScheds,
   createTestingSched,
   updateTestingSched,
-  deleteTestingSched,
-  getTestingSchedsCount
+  deleteTestingSched
 } from 'store/modules/testingsched'
 import {
   getCampuses,
@@ -99,8 +99,8 @@ const mapStateToProps = (state) => ({
   interviews: state.interview.get('interviews'),
   scheds: state.testingsched.get('scheds'),
   fetchingTestingSchedsSuccess: state.testingsched.get('fetchingTestingSchedsSuccess'),
-  schedsCount: state.testingsched.get('schedsCount'),
-  fetchingTestingSchedsCountSuccess: state.testingsched.get('fetchingTestingSchedsCountSuccess')
+  schedsCount: state.admission.get('schedsCount'),
+  fetchingTestingSchedsCountSuccess: state.admission.get('fetchingTestingSchedsCountSuccess')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Admission)

@@ -12,6 +12,9 @@ export const GET_ADMISSIONS_FAIL = 'api/GET_ADMISSIONS_FAIL'
 export const DELETE_ADMISSION = 'api/DELETE_ADMISSION'
 export const DELETE_ADMISSION_SUCCESS = 'api/DELETE_ADMISSION_SUCCESS'
 export const DELETE_ADMISSION_FAIL = 'api/DELETE_ADMISSION_FAIL'
+export const GET_TESTINGSCHEDS_COUNT = 'api/GET_TESTINGSCHEDS_COUNT'
+export const GET_TESTINGSCHEDS_COUNT_SUCCESS = 'api/GET_TESTINGSCHEDS_COUNT_SUCCESS'
+export const GET_TESTINGSCHEDS_COUNT_FAIL = 'api/GET_TESTINGSCHEDS_COUNT_FAIL'
 
 // ------------------------------------
 // Actions
@@ -116,6 +119,25 @@ export function deleteAdmission (id) {
   }
 }
 
+export function getTestingSchedsCount (testingSchedID = 0) {
+  return (dispatch, getState) => {
+    dispatch(showLoading())
+    let endpoint = `/api/v1/scheds/count?testingSchedID=${testingSchedID}`
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint,
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        types: [GET_TESTINGSCHEDS_COUNT, GET_TESTINGSCHEDS_COUNT_SUCCESS, GET_TESTINGSCHEDS_COUNT_FAIL]
+      }
+    }).then(() => { dispatch(hideLoading()) })
+  }
+}
+
 export const actions = {
   getAdmissions,
   createAdmission,
@@ -139,7 +161,8 @@ actionHandlers[ CREATE_ADMISSION ] = state => {
     creatingAdmission: true,
     creatingAdmissionSuccess: false,
     createAdmissionError: null,
-    deletingAdmissionSuccess: false
+    deletingAdmissionSuccess: false,
+    fetchingTestingSchedsCountSuccess: false
   })
 }
 
@@ -167,7 +190,7 @@ actionHandlers[ GET_ADMISSIONS ] = state => {
     getAdmissionsError: null,
     creatingAdmissionSuccess: false,
     deletingAdmissionSuccess: false,
-    fetchingTestingSchedCountSuccess: false
+    fetchingTestingSchedsCountSuccess: false
   })
 }
 
@@ -192,7 +215,8 @@ actionHandlers[ DELETE_ADMISSION ] = state => {
   return state.merge({
     deletingAdmission: true,
     deletingAdmissionSuccess: false,
-    deleteAdmissionError: null
+    deleteAdmissionError: null,
+    fetchingTestingSchedsCountSuccess: false
   })
 }
 
@@ -212,6 +236,31 @@ actionHandlers[ DELETE_ADMISSION_FAIL ] = (state, action) => {
   })
 }
 
+actionHandlers[ GET_TESTINGSCHEDS_COUNT ] = state => {
+  return state.merge({
+    fetchingTestingSchedsCount: true,
+    fetchingTestingSchedsCountSuccess: false,
+    getTestingSchedsCountError: null
+  })
+}
+
+actionHandlers[ GET_TESTINGSCHEDS_COUNT_SUCCESS ] = (state, action) => {
+  return state.merge({
+    fetchingTestingSchedsCount: false,
+    fetchingTestingSchedsCountSuccess: true,
+    getTestingSchedsCountError: null,
+    schedsCount: action.payload.data
+  })
+}
+
+actionHandlers[ GET_TESTINGSCHEDS_COUNT_FAIL ] = (state, action) => {
+  return state.merge({
+    fetchingTestingSchedsCount: false,
+    fetchingTestingSchedsCountSuccess: false,
+    getTestingSchedsCountError: action.payload.response.error
+  })
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -224,7 +273,10 @@ const initialState = Immutable.fromJS({
   getAdmissionsError: false,
   fetchingAdmissionSuccess: false,
   deleteAdmissionError: false,
-  deletingAdmissionSuccess: false
+  deletingAdmissionSuccess: false,
+  schedsCount: null,
+  getTestingSchedsCountError: false,
+  fetchingTestingSchedCountSuccess: false
 })
 
 export default function reducer (state = initialState, action) {

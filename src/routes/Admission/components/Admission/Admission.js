@@ -96,7 +96,7 @@ class Admission extends Component {
         this.setState({filterReq: false, filters: s})
       }
 
-      this.props.getAdmissions(page, 9999, Array.from(filters))
+      this.props.getAdmissions(page, count, Array.from(filters))
     }
     if (e.target.value === 'upd') {
       if (e.target.checked) {
@@ -118,7 +118,7 @@ class Admission extends Component {
         this.setState({filterRank: false, filters: s})
       }
 
-      this.props.getAdmissions(page, 9999, Array.from(filters))
+      this.props.getAdmissions(page, count, Array.from(filters))
     }
     if (e.target.value === 'TelNo') {
       if (e.target.checked) {
@@ -159,7 +159,8 @@ class Admission extends Component {
           <div className='dashhead'>
             <div className='dashhead-titles'>
               <h6 className='dashhead-subtitle'>USEP-KMSD | Admission's Support Module</h6>
-              <h3 className='dashhead-title'>Registered Applicants {<AdmissionToExcel {...this.props} />}</h3>
+              {/* <h3 className='dashhead-title'>Registered Applicants {<AdmissionToExcel {...this.props} />}</h3> */}
+              <h3 className='dashhead-title'>Registered Applicants</h3>
             </div>
           </div>
           <div className='flextable'>

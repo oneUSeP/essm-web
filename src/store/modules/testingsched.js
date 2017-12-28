@@ -12,9 +12,6 @@ export const GET_TESTINGSCHEDS_FAIL = 'api/GET_TESTINGSCHEDS_FAIL'
 export const DELETE_TESTINGSCHED = 'api/DELETE_TESTINGSCHED'
 export const DELETE_TESTINGSCHED_SUCCESS = 'api/DELETE_TESTINGSCHED_SUCCESS'
 export const DELETE_TESTINGSCHED_FAIL = 'api/DELETE_TESTINGSCHED_FAIL'
-export const GET_TESTINGSCHEDS_COUNT = 'api/GET_TESTINGSCHEDS_COUNT'
-export const GET_TESTINGSCHEDS_COUNT_SUCCESS = 'api/GET_TESTINGSCHEDS_COUNT_SUCCESS'
-export const GET_TESTINGSCHEDS_COUNT_FAIL = 'api/GET_TESTINGSCHEDS_COUNT_FAIL'
 
 // ------------------------------------
 // Actions
@@ -34,25 +31,6 @@ export function getTestingScheds (page = 1, count = 10) {
           'Content-Type': 'application/json'
         },
         types: [GET_TESTINGSCHEDS, GET_TESTINGSCHEDS_SUCCESS, GET_TESTINGSCHEDS_FAIL]
-      }
-    }).then(() => { dispatch(hideLoading()) })
-  }
-}
-
-export function getTestingSchedsCount (testingSchedID = 0) {
-  return (dispatch, getState) => {
-    dispatch(showLoading())
-    let endpoint = `/api/v1/scheds/count?testingSchedID=${testingSchedID}`
-    const { accessToken } = getState().auth.toJS()
-    return dispatch({
-      [CALL_API]: {
-        endpoint,
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        },
-        types: [GET_TESTINGSCHEDS_COUNT, GET_TESTINGSCHEDS_COUNT_SUCCESS, GET_TESTINGSCHEDS_COUNT_FAIL]
       }
     }).then(() => { dispatch(hideLoading()) })
   }
@@ -168,8 +146,7 @@ actionHandlers[ GET_TESTINGSCHEDS ] = state => {
     fetchingTestingSchedsSuccess: false,
     getTestingSchedsError: null,
     creatingTestingSchedSuccess: false,
-    deletingTestingSchedSuccess: false,
-    fetchingTestingSchedCountSuccess: false
+    deletingTestingSchedSuccess: false
   })
 }
 
@@ -214,31 +191,6 @@ actionHandlers[ DELETE_TESTINGSCHED_FAIL ] = (state, action) => {
   })
 }
 
-actionHandlers[ GET_TESTINGSCHEDS_COUNT ] = state => {
-  return state.merge({
-    fetchingTestingSchedsCount: true,
-    fetchingTestingSchedsCountSuccess: false,
-    getTestingSchedsCountError: null
-  })
-}
-
-actionHandlers[ GET_TESTINGSCHEDS_COUNT_SUCCESS ] = (state, action) => {
-  return state.merge({
-    fetchingTestingSchedsCount: false,
-    fetchingTestingSchedsCountSuccess: true,
-    getTestingSchedsCountError: null,
-    schedsCount: action.payload.data
-  })
-}
-
-actionHandlers[ GET_TESTINGSCHEDS_COUNT_FAIL ] = (state, action) => {
-  return state.merge({
-    fetchingTestingSchedsCount: false,
-    fetchingTestingSchedsCountSuccess: false,
-    getTestingSchedsCountError: action.payload.response.error
-  })
-}
-
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -251,10 +203,7 @@ const initialState = Immutable.fromJS({
   getTestingSchedsError: false,
   fetchingTestingSchedSuccess: false,
   deleteTestingSchedError: false,
-  deletingTestingSchedSuccess: false,
-  schedsCount: null,
-  getTestingSchedsCountError: false,
-  fetchingTestingSchedCountSuccess: false
+  deletingTestingSchedSuccess: false
 })
 
 export default function reducer (state = initialState, action) {
