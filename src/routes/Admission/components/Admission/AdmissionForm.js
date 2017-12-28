@@ -5,7 +5,6 @@ import DatePickerGroup from 'components/common/DatePickerGroup'
 import ReactSelect from 'components/common/ReactSelect'
 import validateInput from 'utils/validators/admission'
 import SweetAlert from 'react-bootstrap-sweetalert'
-import Alert from 'react-s-alert'
 import {ModalBody,
   ModalFooter,
   ButtonToolbar,
@@ -138,20 +137,6 @@ class AdmissionForm extends Component {
     }
 
     if (fetchingTestingSchedsCountSuccess) {
-      var sched = schedsCount.get('sched')
-      if (schedsCount.get('count') <= sched.get('Limit')) {
-        Alert.success(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm')} - ${moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
-          position: 'top-right',
-          effect: 'scale'
-        })
-      } else {
-        Alert.error(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm')} - ${moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
-          position: 'top-right',
-          effect: 'scale',
-          html: true
-        })
-      }
-
       this.setState({ isSched: true })
     }
   }

@@ -6,6 +6,8 @@ import _ from 'lodash'
 const { List } = require('immutable')
 import AdmissionTable from './AdmissionTable'
 import AdmissionToExcel from './AdmissionToExcel'
+import Alert from 'react-s-alert'
+import moment from 'moment-timezone'
 
 class Admission extends Component {
   constructor (props) {
@@ -45,6 +47,22 @@ class Admission extends Component {
 
   componentWillReceiveProps (nextProps) {
     let {page, count, filters} = this.state
+    let {fetchingTestingSchedsCountSuccess, schedsCount } = nextProps
+    if (fetchingTestingSchedsCountSuccess) {
+      var sched = schedsCount.get('sched')
+      if (schedsCount.get('count') <= sched.get('Limit')) {
+        Alert.success(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm')} - ${moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
+          position: 'top-right',
+          effect: 'scale'
+        })
+      } else {
+        Alert.error(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm')} - ${moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
+          position: 'top-right',
+          effect: 'scale',
+          html: true
+        })
+      }
+    }
     if (nextProps.creatingAdmissionSuccess) {
       this.setState({
         updateSuccess: (<SweetAlert success title='Success!' onConfirm={e => { this.setState({updateSuccess: null}) }}>
