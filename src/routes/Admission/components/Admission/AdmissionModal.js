@@ -8,6 +8,8 @@ import {
   ModalClose
 } from 'react-modal-bootstrap'
 
+import Alert from 'react-s-alert'
+
 class AdmissionModal extends Component {
   constructor (props) {
     super(props)
@@ -60,6 +62,7 @@ class AdmissionModal extends Component {
   render () {
     return (
       <Modal isOpen={this.props.open} size='modal-lg' onRequestHide={this.hideModal}>
+        <Alert stack={{limit: 3}} />
         {this.state.delete}
         {this.state.deleteSuccess}
         <ModalHeader>

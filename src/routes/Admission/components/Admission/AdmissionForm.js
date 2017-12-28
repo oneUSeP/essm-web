@@ -74,7 +74,7 @@ class AdmissionForm extends Component {
     isUpdated: false,
     isReqComplete: false,
     isSched: false,
-    testingSched: ''
+    testingSched: parseInt('0')
   }
 
   componentWillReceiveProps (nextProps) {
@@ -133,6 +133,7 @@ class AdmissionForm extends Component {
         isUpdated: selectedRecord.get('updated_at') == null ? '' : '' + selectedRecord.get('updated_at'),
         isReqComplete: selectedRecord.get('is_reqcomplete') == null ? '' : selectedRecord.get('is_reqcomplete'),
         isSched: selectedRecord.get('TestingSchedID') != '0'
+        // testingSched: selectedRecord.get('TestingSchedID') == '0' ? parseInt('1527') : parseInt(selectedRecord.get('TestingSchedID'))
       })
     }
 
@@ -144,7 +145,7 @@ class AdmissionForm extends Component {
           effect: 'scale'
         })
       } else {
-        Alert.error(`Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
+        Alert.error(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).format('h:mm')} - ${moment(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
           position: 'top-right',
           effect: 'scale',
           html: true
@@ -245,7 +246,7 @@ class AdmissionForm extends Component {
     if (e.target == 'trackId') {
       this.setState({[e.target]: '' + e.value, strandId: ''})
     } else if (e.target == 'testingSched') {
-      this.setState({ [e.target]: '' + e.value})
+      this.setState({ [e.target]: e.value})
       this.props.getTestingSchedsCount(e.value)
     } else {
       this.setState({ [e.target]: '' + e.value })
