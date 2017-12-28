@@ -17,6 +17,13 @@ import {
   deleteAyTerm
 } from 'store/modules/ayterm'
 import {
+  getTestingScheds,
+  createTestingSched,
+  updateTestingSched,
+  deleteTestingSched,
+  getTestingSchedsCount
+} from 'store/modules/testingsched'
+import {
   getCampuses,
   createCampus,
   updateCampus,
@@ -71,7 +78,9 @@ const mapActionCreators = {
   getStrands,
   getTestingCenters,
   searchAdmissions,
-  getInterviews
+  getInterviews,
+  getTestingScheds,
+  getTestingSchedsCount
 }
 
 const mapStateToProps = (state) => ({
@@ -87,7 +96,11 @@ const mapStateToProps = (state) => ({
   strands: state.strand.get('strands'),
   tracks: state.track.get('tracks'),
   testingcenters: state.testingcenter.get('testingcenters'),
-  interviews: state.interview.get('interviews')
+  interviews: state.interview.get('interviews'),
+  scheds: state.testingsched.get('scheds'),
+  fetchingTestingSchedsSuccess: state.testingsched.get('fetchingTestingSchedsSuccess'),
+  schedsCount: state.testingsched.get('schedsCount'),
+  fetchingTestingSchedCountSuccess: state.testingsched.get('fetchingTestingSchedCountSuccess')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Admission)

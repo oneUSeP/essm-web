@@ -13,6 +13,7 @@ import {ModalBody,
   SplitButton,
   MenuItem } from 'react-bootstrap'
 import _ from 'lodash'
+import moment from 'moment'
 
 class AdmissionForm extends Component {
   state = {
@@ -70,7 +71,9 @@ class AdmissionForm extends Component {
     delete: false,
     isLoading: false,
     isUpdated: false,
-    isReqComplete: false
+    isReqComplete: false,
+    isSched: false,
+    testingSched: ''
   }
 
   componentWillReceiveProps (nextProps) {
@@ -127,7 +130,8 @@ class AdmissionForm extends Component {
         grade12: selectedRecord.get('Grade_12') == null ? '' : '' + selectedRecord.get('Grade_12'),
         testingCenter: selectedRecord.get('ES_Test_Center') == null ? '' : '' + selectedRecord.get('ES_Test_Center'),
         isUpdated: selectedRecord.get('updated_at') == null ? '' : '' + selectedRecord.get('updated_at'),
-        isReqComplete: selectedRecord.get('is_reqcomplete') == null ? '' : selectedRecord.get('is_reqcomplete')
+        isReqComplete: selectedRecord.get('is_reqcomplete') == null ? '' : selectedRecord.get('is_reqcomplete'),
+        isSched: selectedRecord.get('TestingSchedID') != '0'
       })
     }
   }
@@ -198,12 +202,14 @@ class AdmissionForm extends Component {
         grade11: '',
         grade12: '',
         testingCenter: '',
+        testingSched: '',
         active: '0',
         errors: {},
         delete: false,
         isLoading: true,
         isUpdated: false,
         isReqComplete: false,
+        isSched: false,
         verify: null })
       if (this.props.selectedRecord) {
         this.props.updateAdmission(data)
@@ -219,6 +225,9 @@ class AdmissionForm extends Component {
   handleSelectChange = (e) => {
     if (e.target == 'trackId') {
       this.setState({[e.target]: '' + e.value, strandId: ''})
+    } else if (e.target == 'testingSched') {
+      this.props.getTestingSchedsCount(e.value)
+      this.setState({ [e.target]: '' + e.value })
     } else {
       this.setState({ [e.target]: '' + e.value })
     }
@@ -306,10 +315,93 @@ class AdmissionForm extends Component {
       })
     }
 
+    var tS = []
+    if (this.props.testingSchedsData && this.props.campusesData) {
+      this.props.testingSchedsData.map(sched => {
+        this.props.campusesData.map(campus => {
+          if (sched.get('CampusID') === campus.get('CampusID')) {
+            tS.push({ target: 'testingSched', value: sched.get('IndexID'), label: campus.get('ShortName') + ' | ' + sched.get('BatchName') + ' | ' + moment(sched.get('TestingDate')).format('MMMM Do YYYY') + ' | ' + moment(sched.get('TimeFrom')).format('h:mm') + ' - ' + moment(sched.get('TimeTo')).format('h:mm') + ' ' + sched.get('Session') })
+          }
+        })
+      })
+    }
+
     return (
       <form className='form-access' >
         {this.state.verify}
         <ModalBody>
+        {this.state.isSched ? (<div className='row text-center m-t-md'>
+          <div className='col-sm-12 m-b-md'>
+            <div className='w-lg m-x-auto'>
+              <ReactSelect
+                value={this.state.testingSched}
+                onChange={this.handleSelectChange}
+                options={tS}
+                error={this.state.errors.testingSched}
+                placeholder={'Testing Schedules'} />
+            </div>
+          </div>
+        </div>) : null}
+          <div className='row text-center m-t-md'>
+            <div className='col-sm-4 m-b-md'>
+              <div className='w-lg m-x-auto'>
+                <div className='form-group'>
+                  <div>
+                    <div className='radio-inline custom-control custom-radio'>
+                      <label>
+                        <input type='radio' id='radio1' name='radio_req' checked={this.state.isReqComplete} onClick={e => { this.setState({isReqComplete: true}) }} />
+                        <span className='custom-control-indicator'></span>
+                        Complete
+                      </label>
+                    </div>
+                    <div className='radio-inline custom-control custom-radio'>
+                      <label>
+                        <input type='radio' id='radio2' name='radio_req' checked={!this.state.isReqComplete} onClick={e => { this.setState({isReqComplete: false}) }} />
+                        <span className='custom-control-indicator'></span>
+                        Incomplete
+                      </label>
+                    </div>
+                  </div>
+                  <span className='statcard-desc'>Requirements</span>
+                </div>
+              </div>
+            </div>
+            <div className='col-sm-4 m-b-md'>
+              <div className='w-lg m-x-auto'>
+                <div className='form-group'>
+                  <div>
+                    <div className='radio-inline custom-control custom-radio'>
+                      <label>
+                        <input type='radio' id='radio3' name='radio_sched' checked={this.state.isSched} onClick={e => { this.setState({isSched: true}) }} />
+                        <span className='custom-control-indicator'></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div className='radio-inline custom-control custom-radio'>
+                      <label>
+                        <input type='radio' id='radio4' name='radio_sched' checked={!this.state.isSched} onClick={e => { this.setState({isSched: false}) }} />
+                        <span className='custom-control-indicator'></span>
+                        No
+                      </label>
+                    </div>
+                  </div>
+                  <span className='statcard-desc'>Schedule Test</span>
+                </div>
+              </div>
+            </div>
+            <div className='col-sm-4 m-b-md'>
+              <div className='w-lg m-x-auto'>
+                <div className='form-group'>
+                  <ReactSelect
+                    value={this.state.testingCenter}
+                    onChange={this.handleSelectChange}
+                    options={t1}
+                    error={this.state.errors.testingCenter}
+                    placeholder={'Testing Center'} />
+                </div>
+              </div>
+            </div>
+          </div>
           <div className='row text-center m-t-md'>
             <div className='col-sm-6 m-b-md'>
               <div className='w-lg m-x-auto'>
@@ -695,31 +787,6 @@ class AdmissionForm extends Component {
                     placeholder='Grade 12'
                     error={this.state.errors.grade12}
                   />
-                  <ReactSelect
-                    value={this.state.testingCenter}
-                    onChange={this.handleSelectChange}
-                    options={t1}
-                    error={this.state.errors.testingCenter}
-                    placeholder={'Testing Center'} />
-                  <div className='form-group'>
-                    <div>
-                    <div className='radio-inline custom-control custom-radio'>
-                      <label>
-                        <input type='radio' id='radio1' name='radio_req' checked={this.state.isReqComplete} onClick={e => { this.setState({isReqComplete: true}) }} />
-                        <span className='custom-control-indicator'></span>
-                        Complete
-                      </label>
-                    </div>
-                    <div className='radio-inline custom-control custom-radio'>
-                      <label>
-                        <input type='radio' id='radio2' name='radio_req' checked={!this.state.isReqComplete} onClick={e => { this.setState({isReqComplete: false}) }} />
-                        <span className='custom-control-indicator'></span>
-                        Incomplete
-                      </label>
-                    </div>
-                    </div>
-                    <span className='statcard-desc'>Requirements</span>
-                  </div>
                 </div>
               </div>
             </div>

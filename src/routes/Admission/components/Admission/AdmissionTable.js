@@ -51,7 +51,7 @@ class AdmissionTable extends Component {
   render () {
     let { admissions, fetchingAdmissions, ayterms,
       campuses, civilstatuses, incomebrackets, strands,
-      testingcenters, tracks, interviews } = this.props
+      testingcenters, tracks, interviews, scheds } = this.props
 
     var admissionsData = getData(admissions)
     var civilStatusesData = getData(civilstatuses)
@@ -62,10 +62,11 @@ class AdmissionTable extends Component {
     var tracksData = getData(tracks)
     var campusesData = getData(campuses)
     var interviewsData = getData(interviews)
+    var testingSchedsData = getData(scheds)
 
     return (
       <div className='w-full m-x-auto'>
-        <AdmissionModal campusesData={campusesData} civilStatusesData={civilStatusesData} incomeBracketsData={incomeBracketsData} aYTermsData={aYTermsData} strandsData={strandsData} testingCentersData={testingCentersData} tracksData={tracksData} selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
+        <AdmissionModal testingSchedsData={testingSchedsData} campusesData={campusesData} civilStatusesData={civilStatusesData} incomeBracketsData={incomeBracketsData} aYTermsData={aYTermsData} strandsData={strandsData} testingCentersData={testingCentersData} tracksData={tracksData} selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
         <div className='table-full'>
           <div className='table-responsive'>
             <table className='table' data-sort='table'>

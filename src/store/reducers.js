@@ -12,6 +12,7 @@ import incomebracket from './modules/incomebracket'
 import strand from './modules/strand'
 import testingcenter from './modules/testingcenter'
 import interview from './modules/interview'
+import testingsched from './modules/testingsched'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -28,6 +29,7 @@ export const makeRootReducer = (asyncReducers) => {
     strand,
     testingcenter,
     interview,
+    testingsched,
     loadingBar: loadingBarReducer,
     ...asyncReducers
   })
