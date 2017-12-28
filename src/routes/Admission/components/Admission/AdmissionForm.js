@@ -7,11 +7,8 @@ import validateInput from 'utils/validators/admission'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import {ModalBody,
   ModalFooter,
-  ButtonToolbar,
-  ToggleButtonGroup,
-  ToggleButton,
-  SplitButton,
-  MenuItem } from 'react-bootstrap'
+  PanelGroup,
+  Panel} from 'react-bootstrap'
 import _ from 'lodash'
 import moment from 'moment-timezone'
 
@@ -407,6 +404,8 @@ class AdmissionForm extends Component {
               </div>
             </div>
           </div>
+          <PanelGroup>
+            <Panel collapsible header='Registrant`s Information (Click Me)' eventKey='1'>
           <div className='row text-center m-t-md'>
             <div className='col-sm-6 m-b-md'>
               <div className='w-lg m-x-auto'>
@@ -796,6 +795,8 @@ class AdmissionForm extends Component {
               </div>
             </div>
           </div>
+          </Panel>
+          </PanelGroup>
         </ModalBody>
         <ModalFooter>
           <button type='button' className='btn btn-md btn-pill btn-primary' onClick={e => {
