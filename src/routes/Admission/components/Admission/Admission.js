@@ -7,7 +7,7 @@ const { List } = require('immutable')
 import AdmissionTable from './AdmissionTable'
 import AdmissionToExcel from './AdmissionToExcel'
 import Alert from 'react-s-alert'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 class Admission extends Component {
   constructor (props) {
@@ -51,12 +51,12 @@ class Admission extends Component {
     if (fetchingTestingSchedsCountSuccess) {
       var sched = schedsCount.get('sched')
       if (schedsCount.get('count') <= sched.get('Limit')) {
-        Alert.success(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm')} - ${moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
+        Alert.success(`${sched.get('BatchName')}  | ${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment.utc(sched.get('TimeFrom')).format('h:mm')} - ${moment.utc(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
           position: 'top-right',
           effect: 'scale'
         })
       } else {
-        Alert.error(`${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm')} - ${moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
+        Alert.error(`${sched.get('BatchName')}  | ${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment.utc(sched.get('TimeFrom')).format('h:mm')} - ${moment.utc(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')} Status: ${schedsCount.get('count')} / ${sched.get('Limit')}`, {
           position: 'top-right',
           effect: 'scale',
           html: true

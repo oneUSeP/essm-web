@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Immutable from 'immutable'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import PropTypes from 'prop-types'
@@ -91,7 +91,7 @@ class AdmissionTable extends Component {
                     <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
                     <td>{admission.get('TestingSchedID') && admission.get('TestingSchedID') != 0 ? testingSchedsData && testingSchedsData.map(sched => {
                       if (admission.get('TestingSchedID') == sched.get('IndexID')) {
-                        return `${sched.get('BatchName')}  | ${moment(sched.get('TestingDate')).tz('Asia/Manila').format('MMMM Do YYYY')}  | ${moment(sched.get('TimeFrom')).tz('Asia/Manila').format('h:mm')} - ${moment(sched.get('TimeTo')).tz('Asia/Manila').format('h:mm')}  ${sched.get('Session')}`
+                        return `${sched.get('BatchName')}  | ${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment.utc(sched.get('TimeFrom')).format('h:mm')} - ${moment.utc(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')}`
                       }
                     }) : 'Not yet'}</td>
                     <td>{admission.get('is_reqcomplete') && admission.get('is_reqcomplete') == true ? <button type='button' className='btn btn-xs btn-pill btn-success'>Complete</button> : <button type='button' className='btn btn-xs btn-pill btn-default'>Incomplete</button>}</td>
@@ -104,8 +104,8 @@ class AdmissionTable extends Component {
                     <td>{testingCentersData && testingCentersData.map((center, i) => {
                       return center.get('TC_ID') === admission.get('ES_Test_Center') ? center.get('TC_Name') : null
                     })}</td>
-                    <td>{moment(admission.get('AppDate')).tz('Asia/Manila').format('MMM. D, YYYY')}</td>
-                    <td>{admission.get('updated_at') ? moment(admission.get('updated_at')).tz('Asia/Manila').format('MMM. D, YYYY hh:mm:ss A') : null}</td>
+                    <td>{moment.utc(admission.get('AppDate')).format('MMM. D, YYYY')}</td>
+                    <td>{admission.get('updated_at') ? moment.utc(admission.get('updated_at')).format('MMM. D, YYYY hh:mm:ss A') : null}</td>
                   </tr>
                 )
               }))}
