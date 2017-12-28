@@ -168,7 +168,8 @@ actionHandlers[ GET_TESTINGSCHEDS ] = state => {
     fetchingTestingSchedsSuccess: false,
     getTestingSchedsError: null,
     creatingTestingSchedSuccess: false,
-    deletingTestingSchedSuccess: false
+    deletingTestingSchedSuccess: false,
+    fetchingTestingSchedCountSuccess: false
   })
 }
 

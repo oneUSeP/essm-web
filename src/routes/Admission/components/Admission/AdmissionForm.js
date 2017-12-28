@@ -399,7 +399,7 @@ class AdmissionForm extends Component {
                     </div>
                     <div className='radio-inline custom-control custom-radio'>
                       <label>
-                        <input type='radio' id='radio4' name='radio_sched' checked={!this.state.isSched} onClick={e => { this.setState({isSched: false}) }} />
+                        <input type='radio' id='radio4' name='radio_sched' checked={!this.state.isSched} onClick={e => { this.setState({isSched: false, testingSched: 0}) }} />
                         <span className='custom-control-indicator'></span>
                         No
                       </label>

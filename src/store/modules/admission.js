@@ -166,7 +166,8 @@ actionHandlers[ GET_ADMISSIONS ] = state => {
     fetchingAdmissionsSuccess: false,
     getAdmissionsError: null,
     creatingAdmissionSuccess: false,
-    deletingAdmissionSuccess: false
+    deletingAdmissionSuccess: false,
+    fetchingTestingSchedCountSuccess: false
   })
 }
 
