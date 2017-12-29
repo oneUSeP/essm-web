@@ -322,7 +322,7 @@ class AdmissionForm extends Component {
       this.props.testingSchedsData.map(sched => {
         this.props.campusesData.map(campus => {
           if (sched.get('CampusID') === campus.get('CampusID')) {
-            tS.push({ target: 'testingSched', value: sched.get('IndexID'), label: campus.get('ShortName') + ' | ' + sched.get('BatchName') + ' | ' + moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY') + ' | ' + moment.utc(sched.get('TimeFrom')).format('h:mm') + ' - ' + moment.utc(sched.get('TimeTo')).format('h:mm') + ' ' + sched.get('Session') })
+            tS.push({ target: 'testingSched', value: sched.get('IndexID'), label: campus.get('ShortName') + ' | ' + sched.get('BatchName') + ' | ' + moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY') + ' | ' + moment.utc(sched.get('TimeFrom')).format('h:mm A') + ' - ' + moment.utc(sched.get('TimeTo')).format('h:mm A')})
           }
         })
       })

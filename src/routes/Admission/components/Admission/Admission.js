@@ -51,13 +51,13 @@ class Admission extends Component {
     if (fetchingTestingSchedsCountSuccess) {
       var sched = schedsCount.get('sched')
       if (schedsCount.get('count') <= sched.get('Limit')) {
-        Alert.success(`<h4>${schedsCount.get('count')} / ${sched.get('Limit')}</h4>${sched.get('BatchName')}<br>${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}<br>${moment.utc(sched.get('TimeFrom')).format('h:mm')} - ${moment.utc(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')}`, {
+        Alert.success(`<h4>${schedsCount.get('count')} / ${sched.get('Limit')}</h4>${sched.get('BatchName')}<br>${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}<br>${moment.utc(sched.get('TimeFrom')).format('h:mm A')} - ${moment.utc(sched.get('TimeTo')).format('h:mm A')} `, {
           position: 'top-right',
           effect: 'scale',
           html: true
         })
       } else {
-        Alert.error(`<h4>${schedsCount.get('count')} / ${sched.get('Limit')}</h4><br>${sched.get('BatchName')}<br>${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}<br>${moment.utc(sched.get('TimeFrom')).format('h:mm')} - ${moment.utc(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')}`, {
+        Alert.error(`<h4>${schedsCount.get('count')} / ${sched.get('Limit')}</h4><br>${sched.get('BatchName')}<br>${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}<br>${moment.utc(sched.get('TimeFrom')).format('h:mm A')} - ${moment.utc(sched.get('TimeTo')).format('h:mm A')} `, {
           position: 'top-right',
           effect: 'scale',
           html: true

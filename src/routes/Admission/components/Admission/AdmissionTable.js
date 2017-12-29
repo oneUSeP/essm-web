@@ -91,7 +91,7 @@ class AdmissionTable extends Component {
                     <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
                     <td>{admission.get('TestingSchedID') && admission.get('TestingSchedID') != 0 ? testingSchedsData && testingSchedsData.map(sched => {
                       if (admission.get('TestingSchedID') == sched.get('IndexID')) {
-                        return `${sched.get('BatchName')}  | ${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment.utc(sched.get('TimeFrom')).format('h:mm')} - ${moment.utc(sched.get('TimeTo')).format('h:mm')}  ${sched.get('Session')}`
+                        return `${sched.get('BatchName')}  | ${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment.utc(sched.get('TimeFrom')).format('h:mm A')} - ${moment.utc(sched.get('TimeTo')).format('h:mm A')} `
                       }
                     }) : 'Not yet'}</td>
                     <td>{admission.get('is_reqcomplete') && admission.get('is_reqcomplete') == true ? <button type='button' className='btn btn-xs btn-pill btn-success'>Complete</button> : <button type='button' className='btn btn-xs btn-pill btn-default'>Incomplete</button>}</td>
