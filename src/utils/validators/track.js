@@ -8,10 +8,6 @@ export default function validateInput (data) {
     errors.trackName = 'Name is required'
   }
 
-  if (Validator.isNull(data.active)) {
-    errors.active = 'Please specify if active or not'
-  }
-
   return {
     errors,
     isValid: isEmpty(errors)
