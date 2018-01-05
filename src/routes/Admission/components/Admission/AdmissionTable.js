@@ -6,13 +6,14 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 import PropTypes from 'prop-types'
 import AdmissionModal from './AdmissionModal'
 import getData from 'utils/pagination'
+import renderHTML from 'react-render-html'
 
 class AdmissionTable extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      page: 1,
-      count: 99,
+      page: props.page || 1,
+      count: props.count || 99,
       delete: false,
       selectedRecord: null,
       openModal: false
@@ -38,6 +39,7 @@ class AdmissionTable extends Component {
     }
     this.props.getAdmissions(page, count, Array.from(this.props.filters))
     this.setState({page})
+    this.props.updatePage(page)
   }
 
   handleClick = (data) => {
@@ -48,11 +50,28 @@ class AdmissionTable extends Component {
     this.setState({selectedRecord: null, openModal: false})
   }
 
+  renderNumberedPages = (page, lastPage) => {
+    let prev5 = page - 5
+
+    if (page && lastPage) {
+      var list = ''
+      for (let i = page; i <= lastPage; i++) {
+        if (i == page) {
+          list += `<li className=${i == page ? 'active' : ''}><a href=''>${i}</a></li>`
+        }
+      }
+      return renderHTML(list)
+    }
+  }
+
   render () {
     let { admissions, fetchingAdmissions, ayterms,
       campuses, civilstatuses, incomebrackets, strands,
       testingcenters, tracks, interviews, scheds } = this.props
-
+    if (admissions) {
+      var page = admissions.get('page')
+      var lastPage = admissions.get('lastPage')
+    }
     var admissionsData = getData(admissions)
     var civilStatusesData = getData(civilstatuses)
     var incomeBracketsData = getData(incomebrackets)
@@ -69,6 +88,21 @@ class AdmissionTable extends Component {
         <AdmissionModal testingSchedsData={testingSchedsData} campusesData={campusesData} civilStatusesData={civilStatusesData} incomeBracketsData={incomeBracketsData} aYTermsData={aYTermsData} strandsData={strandsData} testingCentersData={testingCentersData} tracksData={tracksData} selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
         <div className='table-full'>
           <div className='table-responsive'>
+            <div className='text-center'>
+              <ul className='pagination'>
+                <li>
+                  <a aria-label='Previous' onClick={e => this.handlePaginationClick('prev')} style={{display: cx({'none': this.state.page < 2 || fetchingAdmissions || this.props.isSearch})}} >
+                    <span aria-hidden='true'>&laquo;</span>
+                  </a>
+                </li>
+                {this.renderNumberedPages(page, lastPage)}
+                <li>
+                  <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (admissionsData && admissionsData.size === 0) || fetchingAdmissions || this.props.isSearch})}} >
+                    <span aria-hidden='true'>&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
             <table className='table' data-sort='table'>
               <thead>
                 <tr>
@@ -120,6 +154,7 @@ class AdmissionTable extends Component {
                 <span aria-hidden='true'>&laquo;</span>
               </a>
             </li>
+            {this.renderNumberedPages(page, lastPage)}
             <li>
               <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (admissionsData && admissionsData.size === 0) || fetchingAdmissions || this.props.isSearch})}} >
                 <span aria-hidden='true'>&raquo;</span>

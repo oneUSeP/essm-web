@@ -169,6 +169,10 @@ class Admission extends Component {
     }
   }
 
+  updatePage = (value) => {
+    this.setState({page: value})
+  }
+
   render () {
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
@@ -253,7 +257,7 @@ class Admission extends Component {
           </div>
         </div>
         <div className='col-sm-12 content'>
-          <AdmissionTable filters={this.state.filters} isSearch={this.state.isSearch} {...this.props} />
+          <AdmissionTable updatePage={this.updatePage} page={this.state.page} count={this.state.count} filters={this.state.filters} isSearch={this.state.isSearch} {...this.props} />
         </div>
       </div>
     )
