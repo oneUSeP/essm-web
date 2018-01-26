@@ -24,7 +24,7 @@ export const createRoutes = (store) => ({
   childRoutes: [
     LoginRoute(store),
     AccountRoute(store),
-    TableRoute(store),
+    // TableRoute(store),
     AdmissionRoute(store)
   ]
 })

@@ -19,11 +19,11 @@ class NavBar extends Component {
               <NavLink to='/admissions' onlyActiveOnIndex>
                 <span className='icon icon-users' />
                 <small className='iconav-nav-label visible-xs-block'>Admissions</small></NavLink></OverlayTrigger>
-            <OverlayTrigger
+            {/*<OverlayTrigger
               placement='right' overlay={<Tooltip id='entities'>Entities</Tooltip>}>
               <NavLink to='/tables' onlyActiveOnIndex>
                 <span className='icon icon-flow-parallel' />
-                <small className='iconav-nav-label visible-xs-block'>Entities</small></NavLink></OverlayTrigger>
+            <small className='iconav-nav-label visible-xs-block'>Entities</small></NavLink></OverlayTrigger>*/}
           </ul>
         </div>
       </nav>
