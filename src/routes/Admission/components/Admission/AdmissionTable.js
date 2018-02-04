@@ -105,7 +105,7 @@ class AdmissionTable extends Component {
     }, {
       Header: 'Requirements',
       accessor: 'requirements',
-      Cell: props => <div className='text-center'><button type='button' className={cx('btn btn-xs btn-pill', { 'btn-success': props.value == 'Complete' }, { 'btn-danger': props.value == 'Incomplete' })}>{props.value}</button></div>
+      Cell: props => <div className='text-center'><small className={cx('label', { 'label-success': props.value == 'Complete' }, { 'label-danger': props.value == 'Incomplete' })} >{props.value}</small></div>
     }, {
       Header: 'Email',
       accessor: 'email'
@@ -115,7 +115,7 @@ class AdmissionTable extends Component {
     }, {
       Header: 'Average Grade',
       accessor: 'averageGrade',
-      Cell: props => <div className={'text-center'} >{props.value}</div>
+      Cell: props => <div className='text-center'><small className={cx('label', { 'label-success': props.value >= 85 }, { 'label-danger': props.value < 85 })} >{props.value}</small></div>
     }, {
       Header: 'Academic Year Applied',
       accessor: 'academicYearApplied'
