@@ -7,6 +7,8 @@ import PropTypes from 'prop-types'
 import AdmissionModal from './AdmissionModal'
 import getData from 'utils/pagination'
 import renderHTML from 'react-render-html'
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
 
 class AdmissionTable extends Component {
   constructor (props) {
@@ -43,6 +45,7 @@ class AdmissionTable extends Component {
   }
 
   handleClick = (data) => {
+    console.log(data)
     this.setState({selectedRecord: data, openModal: true})
   }
 
@@ -83,85 +86,82 @@ class AdmissionTable extends Component {
     var interviewsData = getData(interviews)
     var testingSchedsData = getData(scheds)
 
+    const data = [{
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23
+      }
+    }]
+
+    const columns = [{
+      Header: 'Full Name',
+      accessor: 'fullName',
+      Cell: props => <a href='#' onClick={e => { this.handleClick(props.original.selectedRecord) }}>{props.value}</a>
+    }, {
+      Header: 'Schedule',
+      accessor: 'schedule'
+    }, {
+      Header: 'Requirements',
+      accessor: 'requirements',
+      Cell: props => <div className='text-center'><button type='button' className={cx('btn btn-xs btn-pill', { 'btn-success': props.value == 'Complete' }, { 'btn-danger': props.value == 'Incomplete' })}>{props.value}</button></div>
+    }, {
+      Header: 'Email',
+      accessor: 'email'
+    }, {
+      Header: 'Contact Number',
+      accessor: 'contactNumber'
+    }, {
+      Header: 'Average Grade',
+      accessor: 'averageGrade',
+      Cell: props => <div className={'text-center'} >{props.value}</div>
+    }, {
+      Header: 'Academic Year Applied',
+      accessor: 'academicYearApplied'
+    }, {
+      Header: 'Testing Center',
+      accessor: 'testingCenter'
+    }, {
+      Header: 'Registration Date',
+      accessor: 'registrationDate'
+    }, {
+      Header: 'Updated At',
+      accessor: 'updatedAt'
+    }]
+    let dataSource = []
+
+    admissionsData && (admissionsData.map(admission => {
+      dataSource.push({
+        fullName: `${admission.get('LastName')}, ${admission.get('FirstName')} ${admission.get('MiddleName')}`,
+        schedule: admission.get('TestingSchedID') && admission.get('TestingSchedID') != 0 ? testingSchedsData && testingSchedsData.map(sched => {
+          if (admission.get('TestingSchedID') == sched.get('IndexID')) {
+            return `${sched.get('BatchName')}  | ${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment.utc(sched.get('TimeFrom')).format('h:mm A')} - ${moment.utc(sched.get('TimeTo')).format('h:mm A')} `
+          }
+        }) : 'Not yet',
+        requirements: admission.get('is_reqcomplete') && admission.get('is_reqcomplete') == true ? 'Complete' : 'Incomplete',
+        email: admission.get('Email'),
+        contactNumber: admission.get('TelNo'),
+        averageGrade: ((admission.get('Grade_9') + admission.get('Grade_10') + admission.get('Grade_11') + admission.get('Grade_12')) / 4 > 99 ? 'Invalid' : (admission.get('Grade_9') + admission.get('Grade_10') + admission.get('Grade_11') + admission.get('Grade_12')) / 4),
+        academicYearApplied: aYTermsData && aYTermsData.map((term, i) => {
+          return term.get('TermID') === admission.get('TermID') ? term.get('AcademicYear') + ' - ' + term.get('SchoolTerm') : null
+        }),
+        testingCenter: testingCentersData && testingCentersData.map((center, i) => {
+          return center.get('TC_ID') === admission.get('ES_Test_Center') ? center.get('TC_Name') : null
+        }),
+        registrationDate: moment.utc(admission.get('AppDate')).format('MMM. D, YYYY'),
+        updatedAt: admission.get('updated_at') ? moment.utc(admission.get('updated_at')).format('MMM. D, YYYY hh:mm:ss A') : null,
+        selectedRecord: admission
+      })
+    }))
+
     return (
       <div className='w-full m-x-auto'>
         <AdmissionModal testingSchedsData={testingSchedsData} campusesData={campusesData} civilStatusesData={civilStatusesData} incomeBracketsData={incomeBracketsData} aYTermsData={aYTermsData} strandsData={strandsData} testingCentersData={testingCentersData} tracksData={tracksData} selectedRecord={this.state.selectedRecord} open={this.state.openModal} closeModal={e => { this.handleModalClose() }} {...this.props} />
-        <div className='table-full'>
-          <div className='table-responsive'>
-            <div className='text-center'>
-              <ul className='pagination'>
-                <li>
-                  <a aria-label='Previous' onClick={e => this.handlePaginationClick('prev')} style={{display: cx({'none': this.state.page < 2 || fetchingAdmissions || this.props.isSearch})}} >
-                    <span aria-hidden='true'>&laquo;</span>
-                  </a>
-                </li>
-                {this.renderNumberedPages(page, lastPage)}
-                <li>
-                  <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (admissionsData && admissionsData.size === 0) || fetchingAdmissions || this.props.isSearch})}} >
-                    <span aria-hidden='true'>&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <table className='table' data-sort='table'>
-              <thead>
-                <tr>
-                  <th className='header'>Full Name</th>
-                  <th className='header'>Schedule</th>
-                  <th className='header'>Requirements</th>
-                  <th className='header'>Email</th>
-                  <th className='header'>Contact Number</th>
-                  <th className='header'>Average Grade</th>
-                  <th className='header'>Academic Year Applied</th>
-                  <th className='header'>Testing Center</th>
-                  <th className='header'>Registration Date</th>
-                  <th className='header'>Updated At</th>
-                </tr>
-              </thead>
-              <tbody>
-              {admissionsData && (admissionsData.map(admission => {
-                return (
-                  <tr key={admission.get('AppNo')}>
-                    <td><a href='#' onClick={e => { this.handleClick(admission) }}>{admission.get('LastName')}, {admission.get('FirstName')} {admission.get('MiddleName')}</a></td>
-                    <td>{admission.get('TestingSchedID') && admission.get('TestingSchedID') != 0 ? testingSchedsData && testingSchedsData.map(sched => {
-                      if (admission.get('TestingSchedID') == sched.get('IndexID')) {
-                        return `${sched.get('BatchName')}  | ${moment.utc(sched.get('TestingDate')).format('MMMM Do YYYY')}  | ${moment.utc(sched.get('TimeFrom')).format('h:mm A')} - ${moment.utc(sched.get('TimeTo')).format('h:mm A')} `
-                      }
-                    }) : 'Not yet'}</td>
-                    <td>{admission.get('is_reqcomplete') && admission.get('is_reqcomplete') == true ? <button type='button' className='btn btn-xs btn-pill btn-success'>Complete</button> : <button type='button' className='btn btn-xs btn-pill btn-default'>Incomplete</button>}</td>
-                    <td>{admission.get('Email')}</td>
-                    <td>{admission.get('TelNo')}</td>
-                    <td>{((admission.get('Grade_9') + admission.get('Grade_10') + admission.get('Grade_11') + admission.get('Grade_12')) / 4 > 99 ? 'Invalid' : (admission.get('Grade_9') + admission.get('Grade_10') + admission.get('Grade_11') + admission.get('Grade_12')) / 4)}</td>
-                    <td>{aYTermsData && aYTermsData.map((term, i) => {
-                      return term.get('TermID') === admission.get('TermID') ? term.get('AcademicYear') + ' - ' + term.get('SchoolTerm') : null
-                    })}</td>
-                    <td>{testingCentersData && testingCentersData.map((center, i) => {
-                      return center.get('TC_ID') === admission.get('ES_Test_Center') ? center.get('TC_Name') : null
-                    })}</td>
-                    <td>{moment.utc(admission.get('AppDate')).format('MMM. D, YYYY')}</td>
-                    <td>{admission.get('updated_at') ? moment.utc(admission.get('updated_at')).format('MMM. D, YYYY hh:mm:ss A') : null}</td>
-                  </tr>
-                )
-              }))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className='text-center'>
-          <ul className='pagination'>
-            <li>
-              <a aria-label='Previous' onClick={e => this.handlePaginationClick('prev')} style={{display: cx({'none': this.state.page < 2 || fetchingAdmissions || this.props.isSearch})}} >
-                <span aria-hidden='true'>&laquo;</span>
-              </a>
-            </li>
-            {this.renderNumberedPages(page, lastPage)}
-            <li>
-              <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (admissionsData && admissionsData.size === 0) || fetchingAdmissions || this.props.isSearch})}} >
-                <span aria-hidden='true'>&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ReactTable
+          data={dataSource}
+          columns={columns}
+            />
       </div>
     )
   }

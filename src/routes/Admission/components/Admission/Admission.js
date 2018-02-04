@@ -33,7 +33,7 @@ class Admission extends Component {
 
   componentWillMount () {
     let { page, count } = this.state
-    this.props.getAdmissions(page, count)
+    this.props.getAdmissions(page, 99999)
     this.props.getAyTerms(page, 999)
     this.props.getCampuses(page, count)
     this.props.getCivilStatuses(page, count)
