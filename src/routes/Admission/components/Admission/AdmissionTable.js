@@ -15,7 +15,7 @@ class AdmissionTable extends Component {
     super(props)
     this.state = {
       page: props.page || 1,
-      count: props.count || 99,
+      count: props.count || 9999,
       delete: false,
       selectedRecord: null,
       openModal: false

@@ -18,7 +18,7 @@ class Admission extends Component {
       search: '',
       errors: [],
       page: 1,
-      count: 99,
+      count: 9999,
       filterReq: '',
       filterUpd: '',
       filterRank: '',
@@ -33,15 +33,15 @@ class Admission extends Component {
 
   componentWillMount () {
     let { page, count } = this.state
-    this.props.getAdmissions(page, 99999)
-    this.props.getAyTerms(page, 999)
+    this.props.getAdmissions(page, count)
+    this.props.getAyTerms(page, count)
     this.props.getCampuses(page, count)
     this.props.getCivilStatuses(page, count)
     this.props.getIncomeBrackets(page, count)
     this.props.getStrands(page, count)
     this.props.getTracks(page, count)
     this.props.getTestingCenters(page, count)
-    this.props.getInterviews(page, 9999)
+    this.props.getInterviews(page, count)
     this.props.getTestingScheds(page, count)
   }
 
